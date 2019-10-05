@@ -1,0 +1,44 @@
+{
+	"short_name": "Chhota Bheem Carnival",
+	"name": "Chhota Bheem and Friends Carnival",
+	"icons": [
+		{
+			"src": "icons/icon_cb_48.png",
+			"type": "image/png",
+			"sizes": "48x48"
+		},
+		{
+			"src": "icons/icon_cb_72.png",
+			"type": "image/png",
+			"sizes": "72x72"
+		},
+		{
+			"src": "icons/icon_cb_96.png",
+			"type": "image/png",
+			"sizes": "96x96"
+		},
+		{
+			"src": "icons/icon_cb_144.png",
+			"type": "image/png",
+			"sizes": "144x144"
+		},
+		{
+			"src": "icons/icon_cb_192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "icons/icon_cb_512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"background_color": "#FFFFFF",
+	"display": "standalone",
+	"orientation": "portrait",
+	"theme_color": "#F48023",
+	"start_url": "/",
+	"manifest_version": 2,
+	"version": "1.0",
+	"summary": "Visit Dholakpur and meet Chhota Bheem and Friends at this fun-filled carnival!"
+}
