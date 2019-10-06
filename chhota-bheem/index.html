@@ -23,6 +23,152 @@
 
   <body>
 
+    <!-- Book Ticket Modal -->
+    <div id="bookTicketModal" class="modal modal-fixed-footer z-depth-3" style="border-radius: 1em;">
+      <div class="modal-content">
+        <a class="btn-floating btn-large waves-effect waves-light green darken-2 right z-depth-3"><i
+            class="material-icons">add</i></a>
+        <h3 class="right z-depth-3"
+          style="margin-right:0.5em; margin-left:0.5em; border-style: 1em; border-radius: 1em; border-style:solid; border-color: #777777; padding-left:0.25em; padding-right:0.25em; font-weight:bold;">
+          1
+        </h3>
+        <a class="btn-floating btn-large waves-effect waves-light red darken-2 right z-depth-3"><i
+            class="material-icons">remove</i></a>
+        <h4 class="right">Quantity&emsp;</h4>
+        <h1 class="valign-wrapper"><i class="material-icons prefix"
+            style="font-size:1em; font-weight:bold;">subtitles</i>&emsp;Book
+          Tickets</h1>
+        <hr />
+        <div class="z-depth-3" style="border-style: solid; border-radius: 1em; padding:1em; margin-top:2em;">
+          <div class="row">
+            <div class="col s12 m12 l6 xl6 input-field">
+              <i class="material-icons prefix">account_circle</i>
+              <input placeholder="Rahul" id="first_name" type="text" class="validate" required>
+              <label for="first_name">First Name *</label>
+              <span class="helper-text" data-error="This is a required field" data-success="Perfect.">It doesn't have to
+                be your real name.</span>
+            </div>
+            <div class="col s12 m12 l6 xl6 input-field">
+              <i class="material-icons prefix">account_circle</i>
+              <input placeholder="Prakash" id="last_name" type="text" class="validate">
+              <label for="last_name">Last Name</label>
+              <span class="helper-text" data-error="Ignore the red color." data-success="Perfect.">You can leave this
+                blank if you're lazy.</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m12 l6 xl6 input-field">
+              <i class="material-icons prefix">account_circle</i>
+              <input placeholder="rahul.prakash34@gmail.com" id="email" type="email" class="validate"
+                pattern="[a-z0-9._%+-]+@[a-z0-9._%+-].[a-z0-9._%+-]" required>
+              <label for="email">Email *</label>
+              <span class="helper-text" data-error="Please enter a valid email address" data-success="Perfect.">Your
+                tickets will be sent to this email address.</span>
+            </div>
+            <div class="col s12 m12 l6 xl6 input-field">
+              <i class="material-icons prefix">phone</i>
+              <input placeholder="9785412548" data-length="10" id="phone" type="number" min="6000000000"
+                max="9999999999" pattern="^\d{10}$" class="validate" required>
+              <label for="phone">Phone Number *</label>
+              <span class="helper-text" data-error="Please enter a valid phone number" data-success="Perfect.">Please
+                enter a 10-digit phone number.</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m12 l2 xl2">
+              <h6 class="valign-wrapper" style="padding-top:0.8em;"><i
+                  class="material-icons prefix">person</i>&emsp;Gender
+              </h6>
+            </div>
+            <div class="col s12 m12 l2 xl2 input-field">
+              <label>
+                <input name="gender" type="radio" checked />
+                <span>Male</span>
+              </label>
+            </div>
+            <div class="col s12 m12 l2 xl2 input-field">
+              <label>
+                <input name="gender" type="radio" />
+                <span>Female</span>
+              </label>
+            </div>
+            <div class="col s12 m12 l6 xl6 input-field">
+              <i class="material-icons prefix">money</i>
+              <input placeholder="TNBCB0001" data-length="9" id="discount_code" type="text" pattern="/^[a-z]{0,10}$/"
+                class="validate">
+              <label for="phone">Discount Code</label>
+              <span class="helper-text" data-error="Ignore the red color." data-success="Perfect.">Enter a discount code
+                if you have it.</span>
+            </div>
+            <span class="helper-text"
+              style="margin-left:3em; font-size: 12px !important; color:rgba(0,0,0,0.54);">Unfortunately, we don't
+              currently support Apache
+              helicopters.</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="height:64px; background-color: rgb(241, 238, 231) !important;">
+        <h4 class="left" style="font-weight: bold; margin-top:0.3em; margin-left:1em;">₹ <span id="total">499</span>.00
+        </h4>
+        <p class="left"><i>&emsp;(This price excludes GST)</i></p>
+        <a href="#!" class=" modal-close waves-effect waves-red red darken-2 btn white-text z-depth-3"
+          style="margin-bottom:4em; margin-right:1em;"><b>Cancel<i class="material-icons right">cancel</i></b></a>
+        <a id="proceedToPay" href="#!" class="waves-effect waves-green green darken-2 btn white-text z-depth-3 disabled"
+          style="margin-bottom:4em; margin-right:1em;"><b>Proceed to
+            Payment<i class="material-icons right">arrow_right_alt</i></b></a>
+        <div id="paymentLoader" class="preloader-wrapper small active"
+          style="margin-bottom:1em; margin-right:1em; display:none;">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <main style="background-color:#FFFFFF !important; background-image:linear-gradient(#FFFFFF, #F6C567);">
 
       <nav class="z-depth-0">
@@ -33,7 +179,7 @@
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li id="bookTicketsNow"
               style="background-color:#FFFFFF !important; background-image: linear-gradient(to right, #F6C567, #F48023);">
-              <a style="font-size: 2em;" href="#">Book
+              <a href="#bookTicketModal" class="modal-trigger" style="font-size: 2em;">Book
                 Tickets Now!</a></li>
           </ul>
         </div>
@@ -42,7 +188,8 @@
       <div class="row">
         <a id="bookNow" href="#">
           <div class="col s12 m12 l12 xl12">
-            <img src="../resources/images/cb_creative2.webp" style="height:50em; width:125.5em; margin-top:1.5em;" />
+            <img class="modal-trigger" href="#bookTicketModal" src="../resources/images/cb_creative2.webp"
+              style="height:50em; width:125.5em; margin-top:1.5em;" />
           </div>
         </a>
       </div>
@@ -57,7 +204,8 @@
         </div>
         <div class="col l4 s12">
           <h3 class="black-text">The Neighborhood</h3>
-          <p class="black-text" style="font-size:1.2em;">#14/2, Kodigehalli Main Road, <br />Sahakar Nagar, Bengaluru,
+          <p class="black-text" style="font-size:1.2em;">#14/2, Kodigehalli Main Road, <br />Sahakar Nagar,
+            Bengaluru,
             <br /> Karnataka, India - 560 092</p>
           <p class="black-text">
             <a class="valign-wrapper" href="mailto:info@neighborhood.website" title="Send us an email"
@@ -68,7 +216,8 @@
           <h5 class="black-text">What's The Neighborhood?</h5>
           <p class="black-text">
             The Neighborhood is driven by the collective desire to develop community centers as 'hubs' in the
-            community, where multiple grass-roots services and wide-ranging facilities can be accessed and influenced
+            community, where multiple grass-roots services and wide-ranging facilities can be accessed and
+            influenced
             by the unique needs of diverse communities and local neighborhoods.
             <br />
             <br />
@@ -82,6 +231,9 @@
         <div class="container">&copy; <span id="footerYear">2019</span> The Neighborhood. All rights reserved.</div>
       </div>
     </footer>
+
+    <div class="g-recaptcha" data-sitekey="6LfcJbwUAAAAANfqtXNFlQOOsyeSd_6n-qMU2rYH" data-callback="onSubmit"
+      data-size="invisible"></div>
 
     <!-- Scripts -->
 
@@ -98,6 +250,7 @@
     <script type="text/javascript" src="../resources/scripts/jquery-ui.min.js" defer></script>
     <script type="text/javascript" src="../resources/scripts/materialize.min.js" defer></script>
     <script type="text/javascript" src="../resources/scripts/cb_main.js" defer></script>
+    <script type="text/javascript" src="https://theneighborhood.website/link/recaptcha" defer></script>
     <noscript>Unfortunately, your browser does not support javascript.</noscript>
   </body>
 
