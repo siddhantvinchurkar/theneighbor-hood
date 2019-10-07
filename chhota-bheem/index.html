@@ -26,20 +26,20 @@
     <!-- Book Ticket Modal -->
     <div id="bookTicketModal" class="modal modal-fixed-footer z-depth-3" style="border-radius: 1em;">
       <div class="modal-content">
-        <a class="btn-floating btn-large waves-effect waves-light green darken-2 right z-depth-3"><i
+        <a id="plus_1" class="btn-floating btn-large waves-effect waves-light green darken-2 right z-depth-3"><i
             class="material-icons">add</i></a>
-        <h3 class="right z-depth-3"
+        <h3 id="quantity" class="right z-depth-3"
           style="margin-right:0.5em; margin-left:0.5em; border-style: 1em; border-radius: 1em; border-style:solid; border-color: #777777; padding-left:0.25em; padding-right:0.25em; font-weight:bold;">
           1
         </h3>
-        <a class="btn-floating btn-large waves-effect waves-light red darken-2 right z-depth-3"><i
+        <a id="minus_1" class="btn-floating btn-large waves-effect waves-light red darken-2 right z-depth-3 disabled"><i
             class="material-icons">remove</i></a>
         <h4 class="right">Quantity&emsp;</h4>
-        <h1 class="valign-wrapper"><i class="material-icons prefix"
-            style="font-size:1em; font-weight:bold;">subtitles</i>&emsp;Book
+        <h1 class="valign-wrapper"><img src="../resources/images/the_neighborhood_logo.webp"
+            style="height:1em;" />&emsp;Book
           Tickets</h1>
         <hr />
-        <div class="z-depth-3" style="border-style: solid; border-radius: 1em; padding:1em; margin-top:2em;">
+        <div class="z-depth-3" style="border-style: solid; border-radius: 1em; padding:1em;">
           <div class="row">
             <div class="col s12 m12 l6 xl6 input-field">
               <i class="material-icons prefix">account_circle</i>
@@ -60,15 +60,17 @@
             <div class="col s12 m12 l6 xl6 input-field">
               <i class="material-icons prefix">account_circle</i>
               <input placeholder="rahul.prakash34@gmail.com" id="email" type="email" class="validate"
-                pattern="[a-z0-9._%+-]+@[a-z0-9._%+-].[a-z0-9._%+-]" required>
+                pattern="[a-z0-9._%+-]+@+[a-z]+.+[a-z]" required>
               <label for="email">Email *</label>
               <span class="helper-text" data-error="Please enter a valid email address" data-success="Perfect.">Your
                 tickets will be sent to this email address.</span>
             </div>
             <div class="col s12 m12 l6 xl6 input-field">
               <i class="material-icons prefix">phone</i>
-              <input placeholder="9785412548" data-length="10" id="phone" type="number" min="6000000000"
-                max="9999999999" pattern="^\d{10}$" class="validate" required>
+              <input placeholder="9785412548" data-length="10"
+                oninput="javascript: if (this.value.length >= this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                id="phone" type="number" min="6000000000" max="9999999999" maxlength="10" pattern="^\d{10}$"
+                class="validate" required>
               <label for="phone">Phone Number *</label>
               <span class="helper-text" data-error="Please enter a valid phone number" data-success="Perfect.">Please
                 enter a 10-digit phone number.</span>
@@ -80,37 +82,63 @@
                   class="material-icons prefix">person</i>&emsp;Gender
               </h6>
             </div>
-            <div class="col s12 m12 l2 xl2 input-field">
+            <div class="col s12 m12 l1 xl1 input-field">
               <label>
-                <input name="gender" type="radio" checked />
+                <input name="gender" type="radio" value="other" />
+                <span>Other</span>
+              </label>
+            </div>
+            <div class="col s12 m12 l1 xl1 input-field">
+              <label>
+                <input name="gender" type="radio" value="male" checked />
                 <span>Male</span>
               </label>
             </div>
             <div class="col s12 m12 l2 xl2 input-field">
               <label>
-                <input name="gender" type="radio" />
+                <input name="gender" type="radio" value="female" />
                 <span>Female</span>
               </label>
             </div>
             <div class="col s12 m12 l6 xl6 input-field">
               <i class="material-icons prefix">money</i>
-              <input placeholder="TNBCB0001" data-length="9" id="discount_code" type="text" pattern="/^[a-z]{0,10}$/"
-                class="validate">
-              <label for="phone">Discount Code</label>
-              <span class="helper-text" data-error="Ignore the red color." data-success="Perfect.">Enter a discount code
+              <input placeholder="TNBCB0001" data-length="9" maxlength="9"
+                oninput="javascript: if (this.value.length >= this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                id="coupon_code" type="text" pattern="^TNBCB\d{4}$" class="validate">
+              <label for="phone">Coupon Code</label>
+              <span class="helper-text" data-error="Hmm... We can't seem to recognize that coupon code."
+                data-success="Perfect.">Enter a 9-character coupon code
                 if you have it.</span>
             </div>
-            <span class="helper-text"
-              style="margin-left:3em; font-size: 12px !important; color:rgba(0,0,0,0.54);">Unfortunately, we don't
-              currently support Apache
-              helicopters.</span>
+            <span class="helper-text" style="margin-left:3em; font-size: 12px !important; color:rgba(0,0,0,0.54);">We're
+              happy to serve even Apache helicopters.</span>
+          </div>
+          <div class="row">
+            <div class="col s12 m12 l6 xl6 input-field">
+              <i class="material-icons prefix">cake</i>
+              <input placeholder="October 25, 2019" id="birthday" type="text" class="datepicker"
+                pattern="[a-zA-Z]{9}\s\d{2},\s20\d{2}" required>
+              <label for="birthday">Birthday</label>
+              <span id="birthday_label" class="helper-text"
+                data-error="We need to know your age so we can tell if you need to pay after all"
+                data-success="Perfect.">When were you
+                born?</span>
+            </div>
+            <div class="col s12 m12 l6 xl6 input-field">
+              <i class="material-icons prefix">calendar_today</i>
+              <input placeholder="October 25, 2019" id="date" type="text" class="datepicker"
+                pattern="[a-zA-Z]{9}\s\d{2},\s2019">
+              <label for="date">Date</label>
+              <span class="helper-text" data-error="Ignore the red color." data-success="Perfect.">When will you be
+                attending the carnival? It goes on for five whole days! </span>
+            </div>
           </div>
         </div>
       </div>
       <div class="modal-footer" style="height:64px; background-color: rgb(241, 238, 231) !important;">
-        <h4 class="left" style="font-weight: bold; margin-top:0.3em; margin-left:1em;">₹ <span id="total">499</span>.00
+        <h4 class="left" style="font-weight: bold; margin-top:0.3em; margin-left:1em;">₹ <span id="price">499</span>.00
         </h4>
-        <p class="left"><i>&emsp;(This price excludes GST)</i></p>
+        <p class="left"><i>&emsp;(All inclusive; no hidden charges!)</i></p>
         <a href="#!" class=" modal-close waves-effect waves-red red darken-2 btn white-text z-depth-3"
           style="margin-bottom:4em; margin-right:1em;"><b>Cancel<i class="material-icons right">cancel</i></b></a>
         <a id="proceedToPay" href="#!" class="waves-effect waves-green green darken-2 btn white-text z-depth-3 disabled"
@@ -169,32 +197,132 @@
       </div>
     </div>
 
-    <main style="background-color:#FFFFFF !important; background-image:linear-gradient(#FFFFFF, #F6C567);">
+    <!-- Navbar -->
 
-      <nav class="z-depth-0">
-        <div class="nav-wrapper"
-          style="background-color:#FFFFFF !important; background-image: linear-gradient(to right, #FFFFFF, #F6C567); box-shadow: none !important;">
-          <a href="index.html" class="brand-logo"><img src="../resources/images/cb_creative1.webp"
-              style="height:4em; margin-top:0.3em; margin-left:0.3em;"></img></a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li id="bookTicketsNow"
-              style="background-color:#FFFFFF !important; background-image: linear-gradient(to right, #F6C567, #F48023);">
-              <a href="#bookTicketModal" class="modal-trigger" style="font-size: 2em;">Book
-                Tickets Now!</a></li>
-          </ul>
-        </div>
-      </nav>
+    <nav class="z-depth-0">
+      <div class="nav-wrapper"
+        style="background-color:#FFFFFF !important; background-image: linear-gradient(to right, #FFFFFF, #F6C567); box-shadow: none !important;">
+        <a href="index.html" class="brand-logo"><img src="../resources/images/cb_creative1.webp"
+            style="height:4em; margin-top:0.3em; margin-left:0.3em;"></img></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li id="bookTicketsNow"
+            style="background-color:#FFFFFF !important; background-image: linear-gradient(to right, #F6C567, #F48023);">
+            <a href="#bookTicketModal" class="modal-trigger" style="font-size: 2em;">Book
+              Tickets Now!</a></li>
+        </ul>
+      </div>
+    </nav>
 
-      <div class="row">
-        <a id="bookNow" href="#">
-          <div class="col s12 m12 l12 xl12">
-            <img class="modal-trigger" href="#bookTicketModal" src="../resources/images/cb_creative2.webp"
-              style="height:50em; width:125.5em; margin-top:1.5em;" />
-          </div>
+    <!-- Parallax Background -->
+    <div class="parallax-container modal-trigger" href="#bookTicketModal" style="min-height: 750px; cursor: pointer;">
+      <div class="parallax"><img src="../resources/images/cb_creative2.webp"></div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l4 xl4">
+        <img style="padding:2em; height:500px;" src="../resources/images/cb_bheem.webp">
+      </div>
+      <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
+        <h3>Entertainment</h3>
+        <p style="font-size: 1.5em;">
+          This is a test paragraph
+        </p>
+      </div>
+    </div>
+
+    <!--<div class="row parallax-container">
+        <div class="col s12 m12 l12 xl12 parallax">
+          <a id="bookNow" href="#">
+        </div><img class="modal-trigger" href="#bookTicketModal" src="../resources/images/cb_creative2.webp"
+          style="margin-top:1.5em; margin-right:5em;" />
         </a>
       </div>
+      </div>-->
 
-    </main>
+    <!-- Parallax Background -->
+    <div class="parallax-container" style="min-height: 750px;">
+      <div class="parallax"><img src="../resources/images/cb_creative2.webp"></div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l4 xl4">
+        <img style="padding:2em; height:500px;" src="../resources/images/cb_chutki.webp">
+      </div>
+      <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
+        <h3>Workshop</h3>
+        <p style="font-size: 1.5em;">
+          This is a test paragraph
+        </p>
+      </div>
+    </div>
+
+    <!-- Parallax Background -->
+    <div class="parallax-container" style="min-height: 750px;">
+      <div class="parallax"><img src="../resources/images/cb_creative2.webp"></div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l4 xl4">
+        <img style="padding:2em; height:500px;" src="../resources/images/cb_kalia.webp">
+      </div>
+      <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
+        <h3>Kids Play Zone</h3>
+        <p style="font-size: 1.5em;">
+          This is a test paragraph
+        </p>
+      </div>
+    </div>
+
+    <!-- Parallax Background -->
+    <div class="parallax-container" style="min-height: 750px;">
+      <div class="parallax"><img src="../resources/images/cb_creative2.webp"></div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l4 xl4">
+        <img style="padding:2em; height:500px;" src="../resources/images/cb_raju.webp">
+      </div>
+      <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
+        <h3>Dholakpur Market</h3>
+        <p style="font-size: 1.5em;">
+          This is a test paragraph
+        </p>
+      </div>
+    </div>
+
+    <!-- Parallax Background -->
+    <div class="parallax-container" style="min-height: 750px;">
+      <div class="parallax"><img src="../resources/images/cb_creative2.webp"></div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l4 xl4">
+        <img style="padding:2em; height:500px;" src="../resources/images/cb_jaggu.webp">
+      </div>
+      <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
+        <h3>Food Court</h3>
+        <p style="font-size: 1.5em;">
+          This is a test paragraph
+        </p>
+      </div>
+    </div>
+
+    <!-- Parallax Background -->
+    <div class="parallax-container" style="min-height: 750px;">
+      <div class="parallax"><img src="../resources/images/cb_creative2.webp"></div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l4 xl4">
+        <img style="padding:2em; height:500px;" src="../resources/images/cb_bheem.webp">
+      </div>
+      <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
+        <h3>Live Shows</h3>
+        <p style="font-size: 1.5em;">
+          This is a test paragraph
+        </p>
+      </div>
+    </div>
 
     <!-- Footer -->
     <footer class="page-footer" style="background-color:#F6C567 !important;">
@@ -232,8 +360,8 @@
       </div>
     </footer>
 
-    <div class="g-recaptcha" data-sitekey="6LfcJbwUAAAAANfqtXNFlQOOsyeSd_6n-qMU2rYH" data-callback="onSubmit"
-      data-size="invisible"></div>
+    <div style="display:none;" class="g-recaptcha" data-sitekey="6LfcJbwUAAAAANfqtXNFlQOOsyeSd_6n-qMU2rYH"
+      data-callback="onSubmit" data-size="invisible"></div>
 
     <!-- Scripts -->
 
