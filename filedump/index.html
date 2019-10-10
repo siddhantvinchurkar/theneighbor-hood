@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+	<h1>Filedump</h1>
+	<input type="file" id="input">
+	<br />
+	<br />
+	<br />
+	<h1><span id="progress">0</span> % Uploaded</h1>
+	<h3><a id="link" href="#"></a></h3>
+	<script type="text/javascript" src="resources/scripts/firebase-app.js" defer></script>
+	<script type="text/javascript" src="resources/scripts/firebase-auth.js" defer></script>
+	<script type="text/javascript" src="resources/scripts/firebase-storage.js" defer></script>
+	<script type="text/javascript" src="resources/scripts/firebase-init.js" defer></script>
+	<script type="text/javascript" defer>
+		window.onload = function () {
+			document.getElementById('input').onchange = function () {
+				// Sign in anonymously to perform firestore and storage transactions
+				firebase.auth().signInAnonymously().catch(function (error) {
+					console.error('Some error.');
+				});
+				firebase.auth().onAuthStateChanged(function (user) {
+					if (user) {
+						var storage = firebase.storage().ref();
+						var uploadTask = storage.child(document.getElementById('input').files.item(0).name).put(document.getElementById('input').files.item(0));
+						uploadTask.on('state_changed', function (snapshot) {
+							// Observe state change events such as progress, pause, and resume
+							// Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+							var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+							document.getElementById('progress').innerHTML = progress;
+							switch (snapshot.state) {
+								case firebase.storage.TaskState.PAUSED: // or 'paused'
+									console.log('Upload is paused');
+									break;
+								case firebase.storage.TaskState.RUNNING: // or 'running'
+									console.log('Upload is running');
+									break;
+							}
+						}, function (error) {
+							// Handle unsuccessful uploads
+							document.getElementById('progress').innerHTML = 'Done.';
+						}, function () {
+							// Handle successful uploads on complete
+							// For instance, get the download URL: https://firebasestorage.googleapis.com/...
+							uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+								document.getElementById('link').innerHTML = downloadURL;
+								document.getElementById('link').href = downloadURL;
+							});
+						});
+					} else {
+						console.error('Some error.');
+					}
+				});
+			}
+		}
+	</script>
+
+</html>

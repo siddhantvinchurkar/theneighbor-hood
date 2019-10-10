@@ -15,6 +15,7 @@
     <link type="text/css" rel="stylesheet" href="../resources/styles/materialize.min.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="../resources/styles/material-icons.css" />
     <link type="text/css" rel="stylesheet" href="../resources/styles/roboto-font.css" />
+    <link type="text/css" rel="stylesheet" href="../resources/styles/p22_nudgewink-font.css" />
     <link type="text/css" rel="stylesheet" href="../resources/styles/main.css" />
     <title>Chhota Bheem Carnival</title>
   </head>
@@ -35,7 +36,7 @@
         <a id="minus_1" class="btn-floating btn-large waves-effect waves-light red darken-2 right z-depth-3 disabled"><i
             class="material-icons">remove</i></a>
         <h4 class="right">Quantity&emsp;</h4>
-        <h1 class="valign-wrapper"><img src="../resources/images/the_neighborhood_logo.webp"
+        <h1 class="valign-wrapper p22nudgewink"><img src="../resources/images/the_neighborhood_logo.webp"
             style="height:1em;" />&emsp;Book
           Tickets</h1>
         <hr />
@@ -136,9 +137,15 @@
         </div>
       </div>
       <div class="modal-footer" style="height:64px; background-color: rgb(241, 238, 231) !important;">
-        <h4 class="left" style="font-weight: bold; margin-top:0.3em; margin-left:1em;">₹ <span id="price">499</span>.00
+        <h4 class="left p22nudgewink" style="font-weight: bold; margin-top:0.3em; margin-left:1em;">₹ <span
+            id="price">499</span>.00
         </h4>
-        <p class="left"><i>&emsp;(All inclusive; no hidden charges!)</i></p>
+        <p class="left" style="font-size: 0.8em;"><i>&emsp;(By clicking 'Proceed to payment' you agree
+            to our <br /><a href="#">
+              <u><b>Privacy Policy</b></u> <i class="material-icons" style="font-size:1.2em;">launch</i></a> and<a
+              href="#">
+              <u><b>Terms and Conditions</b></u> <i class="material-icons" style="font-size:1.2em;">launch</i></a>)</i>
+        </p>
         <a href="#!" class=" modal-close waves-effect waves-red red darken-2 btn white-text z-depth-3"
           style="margin-bottom:4em; margin-right:1em;"><b>Cancel<i class="material-icons right">cancel</i></b></a>
         <a id="proceedToPay" href="#!" class="waves-effect waves-green green darken-2 btn white-text z-depth-3 disabled"
@@ -207,7 +214,7 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li id="bookTicketsNow"
             style="background-color:#FFFFFF !important; background-image: linear-gradient(to right, #F6C567, #F48023);">
-            <a href="#bookTicketModal" class="modal-trigger" style="font-size: 2em;">Book
+            <a href="#bookTicketModal" class="modal-trigger p22nudgewink" style="font-size: 2em;">Book
               Tickets Now!</a></li>
         </ul>
       </div>
@@ -223,7 +230,7 @@
         <img style="padding:2em; height:500px;" src="../resources/images/cb_bheem.webp">
       </div>
       <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
-        <h3>Entertainment</h3>
+        <h3 class="p22nudgewink">Entertainment</h3>
         <p style="font-size: 1.5em;">
           This is a test paragraph
         </p>
@@ -249,7 +256,7 @@
         <img style="padding:2em; height:500px;" src="../resources/images/cb_chutki.webp">
       </div>
       <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
-        <h3>Workshop</h3>
+        <h3 class="p22nudgewink">Workshop</h3>
         <p style="font-size: 1.5em;">
           This is a test paragraph
         </p>
@@ -266,7 +273,7 @@
         <img style="padding:2em; height:500px;" src="../resources/images/cb_kalia.webp">
       </div>
       <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
-        <h3>Kids Play Zone</h3>
+        <h3 class="p22nudgewink">Kids Play Zone</h3>
         <p style="font-size: 1.5em;">
           This is a test paragraph
         </p>
@@ -283,7 +290,7 @@
         <img style="padding:2em; height:500px;" src="../resources/images/cb_raju.webp">
       </div>
       <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
-        <h3>Dholakpur Market</h3>
+        <h3 class="p22nudgewink">Dholakpur Market</h3>
         <p style="font-size: 1.5em;">
           This is a test paragraph
         </p>
@@ -300,7 +307,7 @@
         <img style="padding:2em; height:500px;" src="../resources/images/cb_jaggu.webp">
       </div>
       <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
-        <h3>Food Court</h3>
+        <h3 class="p22nudgewink">Food Court</h3>
         <p style="font-size: 1.5em;">
           This is a test paragraph
         </p>
@@ -317,7 +324,7 @@
         <img style="padding:2em; height:500px;" src="../resources/images/cb_bheem.webp">
       </div>
       <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
-        <h3>Live Shows</h3>
+        <h3 class="p22nudgewink">Live Shows</h3>
         <p style="font-size: 1.5em;">
           This is a test paragraph
         </p>
@@ -363,23 +370,44 @@
     <div style="display:none;" class="g-recaptcha" data-sitekey="6LfcJbwUAAAAANfqtXNFlQOOsyeSd_6n-qMU2rYH"
       data-callback="onSubmit" data-size="invisible"></div>
 
-    <!-- Scripts -->
+    <!-- Scripts (All deferred to avoid load errors and are the latest copies as of 10th October 2019) -->
 
+    <!-- Firebase Main Script -->
     <script type="text/javascript" src="../resources/scripts/firebase-app.js" defer></script>
+    <!-- Firebase Analytics script -->
     <script type="text/javascript" src="../resources/scripts/firebase-analytics.js" defer></script>
+    <!-- Firebase Authentication script -->
     <script type="text/javascript" src="../resources/scripts/firebase-auth.js" defer></script>
+    <!-- Firebase Firestore real-time database script -->
     <script type="text/javascript" src="../resources/scripts/firebase-firestore.js" defer></script>
+    <!-- Firebase Cloud Storage script -->
     <script type="text/javascript" src="../resources/scripts/firebase-storage.js" defer></script>
+    <!-- Firebase Cloud Messaging script -->
     <script type="text/javascript" src="../resources/scripts/firebase-messaging.js" defer></script>
+    <!-- Firebase Performance Analysis script -->
     <script type="text/javascript" src="../resources/scripts/firebase-performance.js" defer></script>
+    <!-- Firebase Remote Configuration script -->
     <script type="text/javascript" src="../resources/scripts/firebase-remote-config.js" defer></script>
+    <!-- Firebase initialization script -->
     <script type="text/javascript" src="../resources/scripts/firebase-init.js" defer></script>
+    <!-- jQuery script -->
     <script type="text/javascript" src="../resources/scripts/jquery.min.js" defer></script>
+    <!-- jQuery UI script -->
     <script type="text/javascript" src="../resources/scripts/jquery-ui.min.js" defer></script>
+    <!-- Materialize script -->
     <script type="text/javascript" src="../resources/scripts/materialize.min.js" defer></script>
-    <script type="text/javascript" src="../resources/scripts/cb_main.js" defer></script>
+    <!-- Pulling from Google reCAPTCHA server to keep up-to-date -->
     <script type="text/javascript" src="https://theneighborhood.website/link/recaptcha" defer></script>
-    <noscript>Unfortunately, your browser does not support javascript.</noscript>
+    <!-- Pulling from Razorpay server to keep up-to-date -->
+    <script type="text/javascript" src="https://theneighborhood.website/link/razorpay" defer></script>
+    <!-- Main Script (Uncompressed) -->
+    <script type="text/javascript" src="../resources/scripts/cb_main.js" defer></script>
+    <!-- What if some browser does not support javascript or has turned it off? -->
+    <noscript>Unfortunately, your browser does not support javascript. Either that or it's disabled. Maybe try to enable
+      it? Privacy centric browsers like Tor or Brave tend to do this more often than you think. Don't worry. We respect
+      your privacy and will never collect data from you without your explicit consent. If you want to know for sure,
+      head over to our <a href="privacy-policy/" title="Privacy Policy"
+        alt="https://theneighborhood.website/chhota-bheem/privacy-policy">Privacy Policy</a>.</noscript>
   </body>
 
 </html>

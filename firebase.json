@@ -9,20 +9,38 @@
     ],
     "source": "functions"
   },
-  "hosting": {
-    "public": "/",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "/link/**",
-        "dynamicLinks": true
-      }
-    ]
-  },
+  "hosting": [
+    {
+      "target": "theneighbor-hood",
+      "public": "/",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/link/**",
+          "dynamicLinks": true
+        }
+      ]
+    },
+    {
+      "target": "filedump",
+      "public": "filedump",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/link/**",
+          "dynamicLinks": true
+        }
+      ]
+    }
+  ],
   "appAssociation": "AUTO",
   "storage": {
     "rules": "storage.rules"

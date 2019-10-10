@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "theneighbor-hood"
+  },
+  "targets": {
+    "theneighbor-hood": {
+      "hosting": {
+        "theneighbor-hood": [
+          "theneighbor-hood"
+        ],
+        "filedump": [
+          "filedump"
+        ]
+      }
+    }
   }
 }

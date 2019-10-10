@@ -16,9 +16,18 @@ var quantity = 1;
 var price = 499;
 var process = false;
 var coupon_codes = ['TNBCB4321', 'TNBCB5419', 'TNBCB4322'];
+var isAnonymous = null;
+var uid = null;
+var errorCode = null;
+var errorMessage = null;
+var errored = false;
+var signedIn = false;
+var reCAPTCHA_ready = false;
+
+var deploy_mode = 'debug'; // Switch between debug and production modes at will
 
 function onrecaptchaload() {
-	console.log('%c This site is protected by reCAPTCHA.', 'background: #001AFA; color: #FFFFFF ; font-weight:bold;');
+	reCAPTCHA_ready = true;
 }
 
 function onSubmit(token) {
@@ -26,6 +35,26 @@ function onSubmit(token) {
 }
 
 window.onload = function () {
+
+	// Console control
+	if (deploy_mode === 'production') {
+		this.setTimeout(function () {
+			console.clear();
+			console.log('%c Please don\'t copy or break our code!', 'background-color:#222222; color:#AAAA00; font-weight:bold;');
+			console.log('%c Also do visit https://theneighborhood.website/', 'background-color:#222222; color:#BADA55; font-weight:bold;');
+			if (reCAPTCHA_ready) console.log('%c This site is protected by reCAPTCHA.', 'background: #001AFA; color: #FFFFFF ; font-weight:bold;');
+			console.log = function () { }; // Disables console logs
+			console.warn = function () { }; // Disables console warnings
+			console.error = function () { }; // Disables console errors
+		}, 2000);
+	}
+	else if (this.deploy_mode === 'debug') {
+		this.setTimeout(function () {
+			console.clear();
+			console.log('%c You are in development mode!', 'background-color:#777777; color:#AA0000;');
+			if (reCAPTCHA_ready) console.log('%c This site is protected by reCAPTCHA.', 'background: #001AFA; color: #FFFFFF ; font-weight:bold;');
+		}, 2000);
+	}
 
 	// Set footer date
 	$('#footerYear').html(new this.Date().getFullYear());
@@ -152,11 +181,192 @@ window.onload = function () {
 							reCAPTCHA_verified = true;
 							// Invalidate reCAPTCHA after two miunutes.
 							setTimeout(function () { reCAPTCHA_verified = false }, 120000);
-							// Store data on firebase and proceed to payment
-							// TODO: Store data on Firebase and integrate payment API. On successful payment execute the following three lines of code:
-							process = false;
-							$('input').prop('disabled', false);
-							$('#paymentLoader').hide();
+							// Sign in anonymously to perform firestore and storage transactions
+							firebase.auth().signInAnonymously().catch(function (error) {
+								errorCode = error.code;
+								errorMessage = error.message;
+								errorerd = true;
+							});
+							firebase.auth().onAuthStateChanged(function (user) {
+								if (user) {
+									isAnonymous = user.isAnonymous;
+									uid = user.uid;
+									signedIn = true;
+									// Check if user profile exists and then branch flow of code.
+									var db = firebase.firestore();
+									db.collection('chhota-bheem').doc('customer-data').collection('profiles').where('email', '==', email).get().then(function (querySnapshot) {
+										var testBool = false;
+										var docId = null;
+										querySnapshot.forEach(function (doc) {
+											if (doc.data().email == email) {
+												testBool = true;
+												docId = doc.id;
+											}
+											else {
+												testBool = false;
+											}
+										});
+										if (testBool) {
+											// Prepare user profile data on firebase and proceed to payment
+											db.collection('chhota-bheem').doc('customer-data').collection('profiles').doc(docId).update({
+												first_name: first_name,
+												last_name: last_name,
+												gender: gender,
+												phone: phone,
+												email: email,
+												birthday: birthday
+											}).then(function (doc) {
+												$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/createOrder?email=' + email + '&amount=' + price, function (data, status) {
+													if (data) {
+														var order_id = data.order_id;
+														var docId = data.docId;
+														$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/processPayment?amount=' + price * 100 + '&order_id=' + order_id, function (data, status) {
+															var razorpay = new Razorpay(options = {
+																"key": "rzp_test_SwmUgymsMwyA9o", // Enter the Key ID generated from the Dashboard
+																"amount": price * 100, // Amount is in currency subunits. Default currency is INR. Hence, 49900 refers to 49900 paise or INR ₹ 499.
+																"currency": "INR",
+																"name": "The Neighborhood Bengaluru",
+																"description": "Come. Together.",
+																"image": "https://theneighborhood.website/resources/images/the_neighborhood_logo.webp",
+																"order_id": data,
+																"handler": function (response) {
+																	if (response) {
+																		$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/verifyPayment?razorpay_order_id=' + response.razorpay_order_id + '&razorpay_payment_id=' + response.razorpay_payment_id + '&razorpay_signature=' + response.razorpay_signature, function (data, status) {
+																			// Store Razorpay data on Firebase
+																			db.collection('chhota-bheem').doc('customer-data').collection('orders').doc(docId).update({
+																				razorpay_order_id: response.razorpay_order_id,
+																				razorpay_payment_id: response.razorpay_payment_id,
+																				razorpay_signature: response.razorpay_signature,
+																				order_status: true
+																			}).then(function (doc) {
+																				// Payment Successful; Handle webpage response
+																				process = false;
+																				$('input').prop('disabled', false);
+																				$('#paymentLoader').hide();
+																				M.Modal.getInstance(bookTicketModal).close();
+																				setTimeout(function () { window.alert('Payment Successful!'); }, 1000);
+																			}).catch(function (error) {
+																				console.error(error);
+																			});
+																		});
+																	}
+																	else {
+																		process = false;
+																		$('input').prop('disabled', false);
+																		$('#paymentLoader').hide();
+																		M.Modal.getInstance(bookTicketModal).close();
+																		// Alert user about failed payment
+																		alert('Unfortunately, that payment has failed. For any questions/queries, write to info@theneighborhood.in');
+																	}
+																},
+																"prefill": {
+																	"name": first_name + ' ' + last_name,
+																	"email": email,
+																	"contact": phone
+																},
+																"notes": {
+																	"address": "note value"
+																},
+																"theme": {
+																	"color": "#CB3233"
+																}
+															});
+															razorpay.open();
+														});
+													}
+													else {
+														console.error('Order creation failed!');
+													}
+												});
+											}).catch(function (error) {
+												console.error(error);
+												// TODO: Perhaps refresh the page?
+											});
+										}
+										else {
+											// Prepare user profile data on firebase and proceed to payment
+											db.collection('chhota-bheem').doc('customer-data').collection('profiles').add({
+												first_name: first_name,
+												last_name: last_name,
+												gender: gender,
+												phone: phone,
+												email: email,
+												birthday: birthday
+											}).then(function (doc) {
+												$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/createOrder?email=' + email + '&amount=' + price, function (data, status) {
+													if (data) {
+														var order_id = data.order_id;
+														var docId = data.docId;
+														$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/processPayment?amount=' + price * 100 + '&order_id=' + order_id, function (data, status) {
+															var razorpay = new Razorpay(options = {
+																"key": "rzp_test_SwmUgymsMwyA9o", // Enter the Key ID generated from the Dashboard
+																"amount": price * 100, // Amount is in currency subunits. Default currency is INR. Hence, 49900 refers to 49900 paise or INR ₹ 499.
+																"currency": "INR",
+																"name": "The Neighborhood Bengaluru",
+																"description": "Come. Together.",
+																"image": "https://theneighborhood.website/resources/images/the_neighborhood_logo.webp",
+																"order_id": data,
+																"handler": function (response) {
+																	if (response) {
+																		$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/verifyPayment?razorpay_order_id=' + response.razorpay_order_id + '&razorpay_payment_id=' + response.razorpay_payment_id + '&razorpay_signature=' + response.razorpay_signature, function (data, status) {
+																			// Store Razorpay data on Firebase
+																			db.collection('chhota-bheem').doc('customer-data').collection('orders').doc(docId).update({
+																				razorpay_order_id: response.razorpay_order_id,
+																				razorpay_payment_id: response.razorpay_payment_id,
+																				razorpay_signature: response.razorpay_signature,
+																				order_status: true
+																			}).then(function (doc) {
+																				// Payment Successful; Handle webpage response
+																				process = false;
+																				$('input').prop('disabled', false);
+																				$('#paymentLoader').hide();
+																				M.Modal.getInstance(bookTicketModal).close();
+																				setTimeout(function () { window.alert('Payment Successful!'); }, 1000);
+																			}).catch(function (error) {
+																				console.error(error);
+																			});
+																		});
+																	}
+																	else {
+																		process = false;
+																		$('input').prop('disabled', false);
+																		$('#paymentLoader').hide();
+																		M.Modal.getInstance(bookTicketModal).close();
+																		// Alert user about failed payment
+																		alert('Unfortunately, that payment has failed. For any questions/queries, write to info@theneighborhood.in');
+																	}
+																},
+																"prefill": {
+																	"name": first_name + ' ' + last_name,
+																	"email": email,
+																	"contact": phone
+																},
+																"notes": {
+																	"address": "note value"
+																},
+																"theme": {
+																	"color": "#CB3233"
+																}
+															});
+															razorpay.open();
+														});
+													}
+													else {
+														console.error('Order creation failed!');
+													}
+												});
+											}).catch(function (error) {
+												console.error(error);
+												// TODO: Perhaps refresh the page?
+											});
+										}
+									}).catch(function (error) {
+										console.error(error);
+									});
+								} else {
+									signedIn = false;
+								}
+							});
 						}
 					}
 				});
