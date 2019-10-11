@@ -15,6 +15,40 @@ const crypto = require("crypto");
 const admin = require('firebase-admin');
 admin.initializeApp();
 
+const sendgrid = require('@sendgrid/mail');
+sendgrid.setApiKey('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');
+
+const httprequest = require('request');
+
+exports.sendEmail = functions.https.onRequest((request, response) => {
+	sendgrid.send({
+		to: request.query.email,
+		from: 'The Neighborhood <info@theneighborhood.website>',
+		templateId: 'd-2fa02122bebb44f6902f16b5ff63fe65',
+		substitutionWrappers: ['{{', '}}'],
+		dynamic_template_data: {
+			"q": parseInt(request.query.amount) / 499,
+			"a": parseInt(request.query.amount),
+			"qr": request.query.qr
+		}
+	});
+	httprequest('http://login.smsocean.in/api/sendhttp.php?authkey=298008AxJrBBKiB5d9dc199&mobiles=91' + request.query.phone + '&message=Hi%2C%20' + request.query.name + '!%20Welcome%20to%20the%20neighborhood.%20We%20have%20emailed%20you%20your%20passes%20and%20here%20is%20a%20transaction%20reference%20just%20in%20case%3A%20' + request.query.qr + '.&sender=TNBCB&route=4&country=0', function (error, response, body) {
+		console.error('error:', error); // Print the error if one occurred
+		console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+		console.log('body:', body); // Print the HTML for the Google homepage.
+	});
+	admin.firestore().collection('chhota-bheem').doc('customer-data').collection('orders').doc(request.query.qr).update({
+		email_sent: true
+	}).then(() => {
+		cors(request, response, () => { response.send('Email Sent!'); });
+		return true;
+	}).catch(error => {
+		console.error(error);
+		cors(request, response, () => { response.send('Email Not Sent!'); });
+		return true;
+	});
+});
+
 exports.createOrder = functions.https.onRequest((request, response) => {
 	var orderid = 0;
 	admin.firestore().collection('chhota-bheem').doc('customer-data').collection('orders').orderBy('order_id', 'desc').get().then(querySnapshot => {

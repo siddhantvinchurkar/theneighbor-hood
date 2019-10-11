@@ -239,12 +239,20 @@ window.onload = function () {
 																				razorpay_signature: response.razorpay_signature,
 																				order_status: true
 																			}).then(function (doc) {
-																				// Payment Successful; Handle webpage response
-																				process = false;
-																				$('input').prop('disabled', false);
-																				$('#paymentLoader').hide();
-																				M.Modal.getInstance(bookTicketModal).close();
-																				setTimeout(function () { window.alert('Payment Successful!'); }, 1000);
+																				// Payment Successful; send out transactional email
+																				$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/sendEmail?email=' + email + '&amount=' + price + '&qr=' + docId + '&phone=' + phone + '&name=' + first_name, function (data, status) {
+																					if (data === 'Email Sent!') {
+																						// Process complete; handle webpage response
+																						process = false;
+																						$('input').prop('disabled', false);
+																						$('#paymentLoader').hide();
+																						M.Modal.getInstance(bookTicketModal).close();
+																						setTimeout(function () { window.alert('Payment Successful!'); }, 1000);
+																					}
+																					else {
+																						console.error('Email not sent!');
+																					}
+																				});
 																			}).catch(function (error) {
 																				console.error(error);
 																			});
@@ -316,12 +324,20 @@ window.onload = function () {
 																				razorpay_signature: response.razorpay_signature,
 																				order_status: true
 																			}).then(function (doc) {
-																				// Payment Successful; Handle webpage response
-																				process = false;
-																				$('input').prop('disabled', false);
-																				$('#paymentLoader').hide();
-																				M.Modal.getInstance(bookTicketModal).close();
-																				setTimeout(function () { window.alert('Payment Successful!'); }, 1000);
+																				// Payment Successful; send out transactional email
+																				$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/sendEmail?email=' + email + '&amount=' + price + '&qr=' + docId + '&phone=' + phone + '&name=' + first_name, function (data, status) {
+																					if (data === 'Email Sent!') {
+																						// Process complete; handle webpage response
+																						process = false;
+																						$('input').prop('disabled', false);
+																						$('#paymentLoader').hide();
+																						M.Modal.getInstance(bookTicketModal).close();
+																						setTimeout(function () { window.alert('Payment Successful!'); }, 1000);
+																					}
+																					else {
+																						console.error('Email not sent!');
+																					}
+																				});
 																			}).catch(function (error) {
 																				console.error(error);
 																			});
