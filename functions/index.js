@@ -20,6 +20,35 @@ sendgrid.setApiKey('SG.xfpGQXlVT16acncw_We9Jw.E622pyJdVbTvOFYyuUpvwSY8pD7jMoCXFC
 
 const httprequest = require('request');
 
+var converter = require('number-to-words');
+
+exports.couponValidityCron = functions.pubsub.schedule('* * * * *').timeZone('Asia/Kolkata').onRun((context) => {
+	console.log('Execution!');
+	admin.firestore().collection('chhota-bheem').doc('admin-data').collection('coupon-codes').get().then(querySnapshot => {
+		querySnapshot.forEach(doc => {
+			if (doc.data().type === 'timed' || doc.data().type === 'cashback') {
+				if (doc.data().valid_thru.toDate().getTime() < new Date().getTime()) {
+					// Invalidate coupon code
+					admin.firestore().collection('chhota-bheem').doc('admin-data').collection('coupon-codes').doc(doc.id).update({
+						valid: false
+					}).then(() => {
+						console.log(doc.id + ' Invalidated!');
+						return true;
+					}).catch(error => {
+						console.error(error);
+						return true;
+					})
+				}
+			}
+		});
+		return true;
+	}).catch(error => {
+		console.error(error);
+		return true;
+	});
+	return true;
+});
+
 exports.sendEmail = functions.https.onRequest((request, response) => {
 	sendgrid.send({
 		to: request.query.email,
@@ -29,10 +58,11 @@ exports.sendEmail = functions.https.onRequest((request, response) => {
 		dynamic_template_data: {
 			"q": parseInt(request.query.amount) / 499,
 			"a": parseInt(request.query.amount),
-			"qr": request.query.qr
+			"qr": request.query.qr,
+			"qty": converter.toWords(parseInt(request.query.amount / 499)).toUpperCase()
 		}
 	});
-	httprequest('http://login.smsocean.in/api/sendhttp.php?authkey=298008AxJrBBKiB5d9dc199&mobiles=91' + request.query.phone + '&message=Hi%2C%20' + request.query.name + '!%20Welcome%20to%20the%20neighborhood.%20We%20have%20emailed%20you%20your%20passes%20and%20here%20is%20a%20transaction%20reference%20just%20in%20case%3A%20' + request.query.qr + '.&sender=TNBCB&route=4&country=0', function (error, response, body) {
+	httprequest('http://login.smsocean.in/api/sendhttp.php?authkey=298008AxJrBBKiB5d9dc199&mobiles=91' + request.query.phone + '&message=Hi%2C%20' + request.query.name + '!%20Welcome%20to%20the%20neighborhood.%20We%20have%20emailed%20your%20passes.%20Transaction%20reference:%20' + request.query.qr + '.&sender=TNBCB&route=4&country=0', (error, response, body) => {
 		console.error('error:', error); // Print the error if one occurred
 		console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
 		console.log('body:', body); // Print the HTML for the Google homepage.
@@ -83,7 +113,7 @@ exports.createOrder = functions.https.onRequest((request, response) => {
 });
 
 exports.verifyPayment = functions.https.onRequest((request, response) => {
-	var generated_signature = crypto.createHmac("sha256", 'aVE71WfkSvFW8yfy2sHUygkO').update(request.query.razorpay_order_id + "|" + request.query.razorpay_payment_id).digest("hex");
+	var generated_signature = crypto.createHmac("sha256", 'aVE71WfkSvFW8yfy2sHUygkO' /*'qi3yQM4RIWRXl4KsgWFtCU6g'*/).update(request.query.razorpay_order_id + "|" + request.query.razorpay_payment_id).digest("hex");
 	if (generated_signature === request.query.razorpay_signature) {
 		cors(request, response, () => { response.send("Oh damn! Payment successful."); });
 		return true;
@@ -98,8 +128,10 @@ exports.processPayment = functions.https.onRequest((request, response) => {
 	var order_status = false;
 	var order_details = null;
 	var instance = new Razorpay({
-		key_id: 'rzp_test_SwmUgymsMwyA9o',
-		key_secret: 'aVE71WfkSvFW8yfy2sHUygkO'
+		key_id: 'rzp_test_SwmUgymsMwyA9o', // Test Key ID */
+		key_secret: 'aVE71WfkSvFW8yfy2sHUygkO' // Test Key Secret */
+		/* key_id: 'rzp_live_yXMkn5hXpjV3Rx', // Live Key ID */
+		/* key_secret: 'qi3yQM4RIWRXl4KsgWFtCU6g' // Live Key Secret */
 	});
 	var options = {
 		amount: request.query.amount,  // amount in the smallest currency unit (For INR that's paisa; so 49900 ps. = ₹ 499.00)
