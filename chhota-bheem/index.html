@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-IN">
+<html lang="en-GB">
 
   <!-- Header -->
 
@@ -9,7 +9,25 @@
     <meta http-equiv="Expires" content="604800" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F48023" />
-    <meta name="Description" content="Visit Dholakpur and meet Chhota Bheem and Friends at this fun-filled carnival!" />
+    <meta name="Description" content="Visit Dholakpur, meet Chhota Bheem, Friends at this fun carnival!" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta property="og:type" content="event">
+    <meta name="keywords" content="Chhota Bheem Carnival tickets,tickets">
+    <meta name="robots" content="index, follow">
+    <meta property="og:site_name" content="The Neighborhood Website">
+    <meta property="og:title" content="Chhota Bheem Carnival" />
+    <meta property="og:description" content="Visit Dholakpur, meet Chhota Bheem, Friends at this fun carnival!" />
+    <meta property="og:url" content="https://theneighborhood.website/chhota-bheem/index.html" />
+    <meta property="og:image" content="https://theneighborhood.website/chhota-bheem/icons/icon_cb_og.jpg" />
+    <meta property="og:image:alt" content="https://theneighborhood.website/chhota-bheem/icons/icon_cb_og.jpg" />
+    <meta property="og:image:secure_url" content="https://theneighborhood.website/chhota-bheem/icons/icon_cb_og.jpg" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="event:start_time" content="1571977800" />
+    <link rel="preconnect" href="//https://theneighborhood.website">
+    <link rel="preconnect" href="//https://google.com">
+    <link rel="preconnect" href="//https://checkout.razorpay.com">
     <link rel="shortcut icon" type="image/png" href="../resources/images/icons/icon_cb_48.png" />
     <link rel="manifest" href="manifest.json" />
     <link type="text/css" rel="stylesheet" href="../resources/styles/materialize.min.css" media="screen,projection" />
@@ -27,18 +45,26 @@
     <!-- Book Ticket Modal -->
     <div id="bookTicketModal" class="modal modal-fixed-footer z-depth-3" style="border-radius: 1em;">
       <div class="modal-content">
-        <a id="plus_1" class="btn-floating btn-large waves-effect waves-light green darken-2 right z-depth-3"><i
-            class="material-icons">add</i></a>
-        <h3 id="quantity" class="right z-depth-3"
-          style="margin-right:0.5em; margin-left:0.5em; border-style: 1em; border-radius: 1em; border-style:solid; border-color: #777777; padding-left:0.25em; padding-right:0.25em; font-weight:bold;">
-          1
-        </h3>
-        <a id="minus_1" class="btn-floating btn-large waves-effect waves-light red darken-2 right z-depth-3 disabled"><i
-            class="material-icons">remove</i></a>
-        <h4 class="right">Quantity&emsp;</h4>
-        <h1 class="valign-wrapper p22nudgewink"><img src="../resources/images/the_neighborhood_logo.webp"
-            style="height:1em;" />&emsp;Book
-          Tickets</h1>
+        <div class="row">
+          <div class="col s12 m12 l4 xl4">
+            <h1 class="valign-wrapper p22nudgewink"><img src="../resources/images/the_neighborhood_logo.webp"
+                style="height:1em;" />&emsp;Book
+              Tickets
+            </h1>
+          </div>
+          <div class="col s12 m12 l8 xl8">
+            <a id="plus_1" class="btn-floating btn-large waves-effect waves-light green darken-2 right z-depth-3"><i
+                class="material-icons">add</i></a>
+            <h3 id="quantity" class="right z-depth-3"
+              style="margin-right:0.5em; margin-left:0.5em; border-style: 1em; border-radius: 1em; border-style:solid; border-color: #777777; padding-left:0.25em; padding-right:0.25em; font-weight:bold;">
+              1
+            </h3>
+            <a id="minus_1"
+              class="btn-floating btn-large waves-effect waves-light red darken-2 right z-depth-3 disabled"><i
+                class="material-icons">remove</i></a>
+            <h4 class="right">Quantity&emsp;</h4>
+          </div>
+        </div>
         <hr />
         <div class="z-depth-3" style="border-style: solid; border-radius: 1em; padding:1em;">
           <div class="row">
@@ -46,7 +72,8 @@
               <i class="material-icons prefix">account_circle</i>
               <input placeholder="Rahul" id="first_name" type="text" class="validate" required>
               <label for="first_name">First Name *</label>
-              <span class="helper-text" data-error="This is a required field" data-success="Perfect.">It doesn't have to
+              <span class="helper-text" data-error="This is a required field" data-success="Perfect.">It doesn't have
+                to
                 be your real name.</span>
             </div>
             <div class="col s12 m12 l6 xl6 input-field">
@@ -101,7 +128,7 @@
                 <span>Female</span>
               </label>
             </div>
-            <div class="col s12 m12 l6 xl6 input-field">
+            <div class="col s12 m12 l6 xl6 input-field" style=" margin-top:3em;">
               <i class="material-icons prefix">money</i>
               <input placeholder="TNBCB0001" data-length="9" maxlength="9"
                 oninput="javascript: if (this.value.length >= this.maxLength) this.value = this.value.slice(0, this.maxLength);"
@@ -111,7 +138,8 @@
                 data-success="Perfect.">Enter a 9-character coupon code
                 if you have it.</span>
             </div>
-            <span class="helper-text" style="margin-left:3em; font-size: 12px !important; color:rgba(0,0,0,0.54);">We're
+            <span class="helper-text col s12 m12 l6 xl6"
+              style="margin-left:3em; font-size: 12px !important; color:rgba(0,0,0,0.54);">We're
               happy to serve even Apache helicopters.</span>
           </div>
           <div class="row">
@@ -136,69 +164,81 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer" style="height:64px; background-color: rgb(241, 238, 231) !important;">
-        <h4 class="left p22nudgewink" style="font-weight: bold; margin-top:0.3em; margin-left:1em;">₹ <span
-            id="price">499</span>.00
-        </h4>
-        <p class="left" style="font-size: 0.8em;"><i>&emsp;(By clicking 'Proceed to payment' you agree
-            to our <br /><a href="#">
-              <u><b>Privacy Policy</b></u> <i class="material-icons" style="font-size:1.2em;">launch</i></a> and<a
-              href="#">
-              <u><b>Terms and Conditions</b></u> <i class="material-icons" style="font-size:1.2em;">launch</i></a>)</i>
-        </p>
-        <a href="#!" class=" modal-close waves-effect waves-red red darken-2 btn white-text z-depth-3"
-          style="margin-bottom:4em; margin-right:1em;"><b>Cancel<i class="material-icons right">cancel</i></b></a>
-        <a id="proceedToPay" href="#!" class="waves-effect waves-green green darken-2 btn white-text z-depth-3 disabled"
-          style="margin-bottom:4em; margin-right:1em;"><b>Proceed to
-            Payment<i class="material-icons right">arrow_right_alt</i></b></a>
-        <div id="paymentLoader" class="preloader-wrapper small active"
-          style="margin-bottom:1em; margin-right:1em; display:none;">
-          <div class="spinner-layer spinner-blue">
-            <div class="circle-clipper left">
-              <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-              <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-              <div class="circle"></div>
+      <div class="modal-footer" style="height:192px; background-color: rgb(241, 238, 231) !important;">
+        <div class="row">
+          <div class="col s12 m12 l3 xl3">
+            <h4 class="left p22nudgewink" style="font-weight: bold; margin-top:0.3em; margin-left:1em;">₹ <span
+                id="price">499</span>.00
+            </h4>
+          </div>
+          <div class="col s12 m12 l9 xl9">
+            <a href="#!" class=" modal-close waves-effect waves-red red darken-2 btn white-text z-depth-3"
+              style="margin-bottom:4em; margin-right:1em;"><b>Cancel<i class="material-icons right">cancel</i></b></a>
+            <a id="proceedToPay" href="#!"
+              class="waves-effect waves-green green darken-2 btn white-text z-depth-3 disabled"
+              style="margin-bottom:4em; margin-right:1em;"><b>Proceed to
+                Payment<i class="material-icons right">arrow_right_alt</i></b></a>
+            <div id="paymentLoader" class="preloader-wrapper small active"
+              style="margin-bottom:1em; margin-right:1em; display:none;">
+              <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+
+              <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+
+              <div class="spinner-layer spinner-yellow">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+
+              <div class="spinner-layer spinner-green">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div class="spinner-layer spinner-red">
-            <div class="circle-clipper left">
-              <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-              <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
-          </div>
-
-          <div class="spinner-layer spinner-yellow">
-            <div class="circle-clipper left">
-              <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-              <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
-          </div>
-
-          <div class="spinner-layer spinner-green">
-            <div class="circle-clipper left">
-              <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-              <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m12 l12 xl12">
+            <p class="left" style="font-size: 0.8em;"><i>&emsp;(By clicking 'Proceed to payment' you agree
+                to our <br /><a href="#">
+                  <u><b>Privacy Policy</b></u> <i class="material-icons" style="font-size:1.2em;">launch</i></a> and<a
+                  href="#">
+                  <u><b>Terms and Conditions</b></u> <i class="material-icons"
+                    style="font-size:1.2em;">launch</i></a>)</i>
+            </p>
           </div>
         </div>
       </div>
@@ -210,7 +250,7 @@
       <div class="nav-wrapper"
         style="background-color:#FFFFFF !important; background-image: linear-gradient(to right, #FFFFFF, #F6C567); box-shadow: none !important;">
         <a href="index.html" class="brand-logo"><img src="../resources/images/cb_creative1.webp"
-            style="height:4em; margin-top:0.3em; margin-left:0.3em;"></img></a>
+            style="height:3em;" /></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li id="bookTicketsNow"
             style="background-color:#FFFFFF !important; background-image: linear-gradient(to right, #F6C567, #F48023);">
@@ -222,7 +262,12 @@
 
     <!-- Parallax Background -->
     <div class="parallax-container modal-trigger" href="#bookTicketModal" style="min-height: 750px; cursor: pointer;">
-      <div class="parallax"><img src="../resources/images/cb_creative2.webp"></div>
+      <div class="parallax">
+        <picture>
+          <source media="(max-width: 600px)" srcset="../resources/images/placeholders/test.webp">
+          <img src="../resources/images/cb_creative2.webp">
+        </picture>
+      </div>
     </div>
 
     <div class="row">
@@ -248,7 +293,12 @@
 
     <!-- Parallax Background -->
     <div class="parallax-container" style="min-height: 750px;">
-      <div class="parallax"><img src="../resources/images/cb_creative2.webp"></div>
+      <div class="parallax">
+        <picture>
+          <source media="(max-width: 600px)" srcset="../resources/images/placeholders/test.webp">
+          <img src="../resources/images/cb_creative4.webp">
+        </picture>
+      </div>
     </div>
 
     <div class="row">
@@ -256,16 +306,92 @@
         <img style="padding:2em; height:500px;" src="../resources/images/cb_chutki.webp">
       </div>
       <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
-        <h3 class="p22nudgewink">Workshop</h3>
-        <p style="font-size: 1.5em;">
-          This is a test paragraph
-        </p>
+        <h3 class="p22nudgewink">Workshops</h3>
+        <div class="row valign-wrapper">
+          <div class="col s12 m12 l9 xl9">
+            <div class="card-panel teal">
+              <span class="white-text"><span style="font-size:1.5em;">Photography with <b>Namratha
+                    Sitha
+                    Raman</b></span><br /><br />Experience the workshop for one, two or even three days!
+              </span>
+            </div>
+          </div>
+          <div class="col s12 m12 l3 xl3">
+            <img class="circle responsive-img" src="../resources/images/placeholders/10.jpg">
+          </div>
+        </div>
+        <div class="row valign-wrapper">
+          <div class="col s12 m12 l3 xl3">
+            <img class="circle responsive-img" src="../resources/images/placeholders/10.jpg">
+          </div>
+          <div class="col s12 m12 l9 xl9">
+            <div class="card-panel blue">
+              <span class="white-text"><span style="font-size:1.5em;">Robotics with
+                  <b>Mindtronics</b></span><br /><br />Experience the workshop for one, two or even three days!
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row valign-wrapper">
+          <div class="col s12 m12 l9 xl9">
+            <div class="card-panel red">
+              <span class="white-text"><span style="font-size:1.5em;">Tea time cakes and snacks with <b>Professional
+                    Baker</b></span><br /><br />Experience the workshop for one, two or even three days!
+              </span>
+            </div>
+          </div>
+          <div class="col s12 m12 l3 xl3">
+            <img class="circle responsive-img" src="../resources/images/placeholders/10.jpg">
+          </div>
+        </div>
+        <div class="row valign-wrapper">
+          <div class="col s12 m12 l3 xl3">
+            <img class="circle responsive-img" src="../resources/images/placeholders/10.jpg">
+          </div>
+          <div class="col s12 m12 l9 xl9">
+            <div class="card-panel orange">
+              <span class="white-text"><span style="font-size:1.5em;">Dance with
+                  <b>Shreya and team</b></span><br /><br />Experience the workshop for one, two or even three days!
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row valign-wrapper">
+          <div class="col s12 m12 l9 xl9">
+            <div class="card-panel green">
+              <span class="white-text"><span style="font-size:1.5em;">Art and Puppet making with <b>Planet
+                    Cilre</b></span><br /><br />Experience the workshop for one, two or even three days!
+              </span>
+            </div>
+          </div>
+          <div class="col s12 m12 l3 xl3">
+            <img class="circle responsive-img" src="../resources/images/placeholders/10.jpg">
+          </div>
+        </div>
+        <div class="row valign-wrapper">
+          <div class="col s12 m12 l3 xl3">
+            <img class="circle responsive-img" src="../resources/images/placeholders/10.jpg">
+          </div>
+          <div class="col s12 m12 l9 xl9">
+            <div class="card-panel purple">
+              <span class="white-text"><span style="font-size:1.5em;">Djembe with
+                  <b>Ganesh Poojari and team</b></span><br /><br />Experience the workshop for one, two or even three
+                days!
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Parallax Background -->
     <div class="parallax-container" style="min-height: 750px;">
-      <div class="parallax"><img src="../resources/images/cb_creative2.webp"></div>
+      <div class="parallax">
+        <picture>
+          <source media="(max-width: 600px)" srcset="../resources/images/placeholders/test.webp" />
+          <img src="../resources/images/cb_creative3.webp" />
+        </picture>
+      </div>
     </div>
 
     <div class="row">
@@ -282,7 +408,12 @@
 
     <!-- Parallax Background -->
     <div class="parallax-container" style="min-height: 750px;">
-      <div class="parallax"><img src="../resources/images/cb_creative2.webp"></div>
+      <div class="parallax">
+        <picture>
+          <source media="(max-width: 600px)" srcset="../resources/images/placeholders/test.webp">
+          <img src="../resources/images/cb_creative2.webp">
+        </picture>
+      </div>
     </div>
 
     <div class="row">
@@ -299,7 +430,12 @@
 
     <!-- Parallax Background -->
     <div class="parallax-container" style="min-height: 750px;">
-      <div class="parallax"><img src="../resources/images/cb_creative2.webp"></div>
+      <div class="parallax">
+        <picture>
+          <source media="(max-width: 600px)" srcset="../resources/images/placeholders/test.webp">
+          <img src="../resources/images/cb_creative2.webp">
+        </picture>
+      </div>
     </div>
 
     <div class="row">
@@ -316,7 +452,12 @@
 
     <!-- Parallax Background -->
     <div class="parallax-container" style="min-height: 750px;">
-      <div class="parallax"><img src="../resources/images/cb_creative2.webp"></div>
+      <div class="parallax">
+        <picture>
+          <source media="(max-width: 600px)" srcset="../resources/images/placeholders/test.webp">
+          <img src="../resources/images/cb_creative2.webp">
+        </picture>
+      </div>
     </div>
 
     <div class="row">
@@ -399,14 +540,16 @@
     <!-- SweetAlert2 script -->
     <script type="text/javascript" src="../resources/scripts/sweetalert.js" defer></script>
     <!-- Pulling from Google reCAPTCHA server to keep up-to-date -->
-    <script type="text/javascript" src="https://theneighborhood.website/link/recaptcha" defer></script>
+    <script type="text/javascript" src="https://www.google.com/recaptcha/api.js?onload=onrecaptchaload" defer></script>
     <!-- Pulling from Razorpay server to keep up-to-date -->
-    <script type="text/javascript" src="https://theneighborhood.website/link/razorpay" defer></script>
+    <script type="text/javascript" src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
     <!-- Main Script (Uncompressed) -->
     <script type="text/javascript" src="../resources/scripts/cb_main.js" defer></script>
     <!-- What if some browser does not support javascript or has turned it off? -->
-    <noscript>Unfortunately, your browser does not support javascript. Either that or it's disabled. Maybe try to enable
-      it? Privacy centric browsers like Tor or Brave tend to do this more often than you think. Don't worry. We respect
+    <noscript>Unfortunately, your browser does not support javascript. Either that or it's disabled. Maybe try to
+      enable
+      it? Privacy centric browsers like Tor or Brave tend to do this more often than you think. Don't worry. We
+      respect
       your privacy and will never collect data from you without your explicit consent. If you want to know for sure,
       head over to our <a href="privacy-policy/" title="Privacy Policy"
         alt="https://theneighborhood.website/chhota-bheem/privacy-policy">Privacy Policy</a>.</noscript>

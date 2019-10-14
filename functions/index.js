@@ -53,7 +53,7 @@ exports.sendEmail = functions.https.onRequest((request, response) => {
 	sendgrid.send({
 		to: request.query.email,
 		from: 'The Neighborhood <info@theneighborhood.website>',
-		templateId: 'd-2fa02122bebb44f6902f16b5ff63fe65',
+		templateId: /*'d-2fa02122bebb44f6902f16b5ff63fe65'*/'d-4077c7d1de17469b8dbb92fc903f85b8',
 		substitutionWrappers: ['{{', '}}'],
 		dynamic_template_data: {
 			"q": parseInt(request.query.amount) / 499,

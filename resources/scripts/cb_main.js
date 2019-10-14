@@ -25,7 +25,7 @@ var signedIn = false;
 var reCAPTCHA_ready = false;
 var coupon_snapshot = null;
 
-var deploy_mode = 'production'; // Switch between debug and production modes at will
+var deploy_mode = 'debug'; // Switch between debug and production modes at will
 
 function onrecaptchaload() {
 	reCAPTCHA_ready = true;
@@ -51,7 +51,7 @@ window.onload = function () {
 	}
 	else if (this.deploy_mode === 'debug') {
 		this.setTimeout(function () {
-			console.clear();
+			//console.clear();
 			console.log('%c You are in development mode!', 'background-color:#777777; color:#AA0000;');
 			if (reCAPTCHA_ready) console.log('%c This site is protected by reCAPTCHA.', 'background: #001AFA; color: #FFFFFF ; font-weight:bold;');
 		}, 2000);
@@ -80,7 +80,7 @@ window.onload = function () {
 	$('.parallax').parallax();
 	$('.modal').modal({ dismissible: false });
 	$('.datepicker#date').datepicker({ container: 'body', minDate: new this.Date('October 25 2019 06:59:59 GMT+0530'), maxDate: new this.Date('October 29 2019 06:59:59 GMT+0530'), defaultDate: new this.Date('October 25 2019 06:59:59 GMT+0530'), setDefaultDate: true, format: 'mmmm dd, yyyy', onSelect: function (thisdate) { date_poll(thisdate); } });
-	$('.datepicker#birthday').datepicker({ container: 'body', maxDate: tempdate, defaultDate: tempdate, setDefaultDate: true, format: 'mmmm dd, yyyy', onSelect: function (thisdate) { birthday_poll(thisdate); } });
+	$('.datepicker#birthday').datepicker({ container: 'body', maxDate: tempdate, defaultDate: tempdate, setDefaultDate: true, format: 'mmmm dd, yyyy', yearRange:[1930, 2016] , onSelect: function (thisdate) { birthday_poll(thisdate); } });
 	$('input#phone, input#coupon_code').characterCounter();
 
 	// Poll input fields
