@@ -105,28 +105,32 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s12 m12 l2 xl2">
-              <h6 class="valign-wrapper" style="padding-top:0.8em;"><i
-                  class="material-icons prefix">person</i>&emsp;Gender
-              </h6>
-            </div>
-            <div class="col s12 m12 l1 xl1 input-field">
-              <label>
-                <input name="gender" type="radio" value="other" />
-                <span>Other</span>
-              </label>
-            </div>
-            <div class="col s12 m12 l1 xl1 input-field">
-              <label>
-                <input name="gender" type="radio" value="male" checked />
-                <span>Male</span>
-              </label>
-            </div>
-            <div class="col s12 m12 l2 xl2 input-field">
-              <label>
-                <input name="gender" type="radio" value="female" />
-                <span>Female</span>
-              </label>
+            <div class="col s12 m12 l6 xl6">
+              <div class="row">
+                <div class="col s12 m12 l12 xl12">
+                  <h6 class="valign-wrapper" style="padding-top:0.8em;"><i
+                      class="material-icons prefix">person</i>&emsp;Gender
+                  </h6>
+                </div>
+                <div class="col s12 m12 l12 xl12 input-field">
+                  <label>
+                    <input name="gender" type="radio" value="other" />
+                    <span>Other</span>
+                  </label>
+                </div>
+                <div class="col s12 m12 l12 xl12 input-field">
+                  <label>
+                    <input name="gender" type="radio" value="male" checked />
+                    <span>Male</span>
+                  </label>
+                </div>
+                <div class="col s12 m12 l12 xl12 input-field">
+                  <label>
+                    <input name="gender" type="radio" value="female" />
+                    <span>Female</span>
+                  </label>
+                </div>
+              </div>
             </div>
             <div class="col s12 m12 l6 xl6 input-field" style=" margin-top:3em;">
               <i class="material-icons prefix">money</i>
@@ -164,7 +168,7 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer" style="height:192px; background-color: rgb(241, 238, 231) !important;">
+      <div class="modal-footer" style="height:128px; background-color: rgb(241, 238, 231) !important;">
         <div class="row">
           <div class="col s12 m12 l3 xl3">
             <h4 class="left p22nudgewink" style="font-weight: bold; margin-top:0.3em; margin-left:1em;">₹ <span
@@ -172,12 +176,6 @@
             </h4>
           </div>
           <div class="col s12 m12 l9 xl9">
-            <a href="#!" class=" modal-close waves-effect waves-red red darken-2 btn white-text z-depth-3"
-              style="margin-bottom:4em; margin-right:1em;"><b>Cancel<i class="material-icons right">cancel</i></b></a>
-            <a id="proceedToPay" href="#!"
-              class="waves-effect waves-green green darken-2 btn white-text z-depth-3 disabled"
-              style="margin-bottom:4em; margin-right:1em;"><b>Proceed to
-                Payment<i class="material-icons right">arrow_right_alt</i></b></a>
             <div id="paymentLoader" class="preloader-wrapper small active"
               style="margin-bottom:1em; margin-right:1em; display:none;">
               <div class="spinner-layer spinner-blue">
@@ -228,6 +226,12 @@
                 </div>
               </div>
             </div>
+            <a id="proceedToPay" href="#!"
+              class="waves-effect waves-green green darken-2 btn white-text z-depth-3 disabled"
+              style="margin-bottom:4em; margin-right:1em;"><b>Proceed to
+                Payment<i class="material-icons right">arrow_right_alt</i></b></a>
+            <a href="#!" class=" modal-close waves-effect waves-red red darken-2 btn white-text z-depth-3"
+              style="margin-bottom:4em; margin-right:1em;"><b>Cancel<i class="material-icons right">cancel</i></b></a>
           </div>
         </div>
         <div class="row">
