@@ -246,7 +246,8 @@ window.onload = function () {
 														if (data) {
 															var docId = data.docId;
 															db.collection('chhota-bheem').doc('customer-data').collection('orders').doc(docId).update({
-																order_status: true
+																order_status: true,
+																coupon_used: coupon_code
 															}).then(function (doc) {
 																db.collection('chhota-bheem').doc('admin-data').collection('coupon-codes').where('coupon_code', '==', coupon_code).get().then(function (querySnapshot) {
 																	querySnapshot.forEach(function (doc) {
@@ -485,7 +486,8 @@ window.onload = function () {
 																	querySnapshot.forEach(function (doc) {
 																		if (doc.data().type == 'single') {
 																			db.collection('chhota-bheem').doc('admin-data').collection('coupon-codes').doc(doc.id).update({
-																				valid: false
+																				valid: false,
+																				coupon_used: coupon_code
 																			}).then(function (doc) {
 																				// Payment Successful; send out transactional email
 																				$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/sendEmail?email=' + email + '&amount=' + (price + 499) * quantity + '&qr=' + docId + '&phone=' + phone + '&name=' + first_name, function (data, status) {
