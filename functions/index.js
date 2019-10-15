@@ -16,7 +16,8 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 const sendgrid = require('@sendgrid/mail');
-sendgrid.setApiKey('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');
+// sendgrid.setApiKey('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');
+sendgrid.setApiKey('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');
 
 const httprequest = require('request');
 
@@ -62,7 +63,7 @@ exports.sendEmail = functions.https.onRequest((request, response) => {
 			"qty": converter.toWords(parseInt(request.query.amount / 499)).toUpperCase()
 		}
 	});
-	httprequest('http://login.smsocean.in/api/sendhttp.php?authkey=298008AxJrBBKiB5d9dc199&mobiles=91' + request.query.phone + '&message=Hi%2C%20' + request.query.name + '!%20Welcome%20to%20the%20neighborhood.%20We%20have%20emailed%20your%20passes.%20Transaction%20reference:%20' + request.query.qr + '.&sender=TNBCB&route=4&country=0', (error, response, body) => {
+	httprequest('http://login.smsocean.in/api/sendhttp.php?authkey=298008AxJrBBKiB5d9dc199&mobiles=91' + request.query.phone + '&message=Hi%2C%20' + request.query.name + '!%20Welcome%20to%20the%20neighborhood.%20We%20have%20emailed%20your%20passes.%20Transaction%20reference:%20' + request.query.qr + '.&sender=TNBCBF&route=4&country=0', (error, response, body) => {
 		console.error('error:', error); // Print the error if one occurred
 		console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
 		console.log('body:', body); // Print the HTML for the Google homepage.

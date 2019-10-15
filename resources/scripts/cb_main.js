@@ -80,7 +80,7 @@ window.onload = function () {
 	$('.parallax').parallax();
 	$('.modal').modal({ dismissible: false });
 	$('.datepicker#date').datepicker({ container: 'body', minDate: new this.Date('October 25 2019 06:59:59 GMT+0530'), maxDate: new this.Date('October 29 2019 06:59:59 GMT+0530'), defaultDate: new this.Date('October 25 2019 06:59:59 GMT+0530'), setDefaultDate: true, format: 'mmmm dd, yyyy', onSelect: function (thisdate) { date_poll(thisdate); } });
-	$('.datepicker#birthday').datepicker({ container: 'body', maxDate: tempdate, defaultDate: tempdate, setDefaultDate: true, format: 'mmmm dd, yyyy', yearRange:[1930, 2016] , onSelect: function (thisdate) { birthday_poll(thisdate); } });
+	$('.datepicker#birthday').datepicker({ container: 'body', maxDate: tempdate, defaultDate: tempdate, setDefaultDate: true, format: 'mmmm dd, yyyy', yearRange: [1930, 2016], onSelect: function (thisdate) { birthday_poll(thisdate); } });
 	$('input#phone, input#coupon_code').characterCounter();
 
 	// Poll input fields
@@ -208,24 +208,29 @@ window.onload = function () {
 								errorerd = true;
 							});
 							firebase.auth().onAuthStateChanged(function (user) {
-								if (user) {
-									isAnonymous = user.isAnonymous;
-									uid = user.uid;
+								if (user || !user) {
+									if (user) isAnonymous = user.isAnonymous;
+									if (user) uid = user.uid;
 									signedIn = true;
 									// Check if user profile exists and then branch flow of code.
 									var db = firebase.firestore();
+									//console.log(email);
 									db.collection('chhota-bheem').doc('customer-data').collection('profiles').where('email', '==', email).get().then(function (querySnapshot) {
 										var testBool = false;
 										var docId = null;
-										querySnapshot.forEach(function (doc) {
-											if (doc.data().email == email) {
-												testBool = true;
-												docId = doc.id;
-											}
-											else {
-												testBool = false;
-											}
-										});
+										try {
+											querySnapshot.forEach(function (doc) {
+												if (doc.data().email == email) {
+													testBool = true;
+													docId = doc.id;
+												}
+												else {
+													testBool = false;
+												}
+											});
+										} catch (error) {
+											console.error(error);
+										}
 										if (testBool) {
 											if (price == 0) {
 												// Prepare user profile data on firebase and proceed to payment
@@ -245,9 +250,35 @@ window.onload = function () {
 															}).then(function (doc) {
 																db.collection('chhota-bheem').doc('admin-data').collection('coupon-codes').where('coupon_code', '==', coupon_code).get().then(function (querySnapshot) {
 																	querySnapshot.forEach(function (doc) {
-																		db.collection('chhota-bheem').doc('admin-data').collection('coupon-codes').doc(doc.id).update({
-																			valid: false
-																		}).then(function (doc) {
+																		if (doc.data().type == 'single') {
+																			db.collection('chhota-bheem').doc('admin-data').collection('coupon-codes').doc(doc.id).update({
+																				valid: false
+																			}).then(function (doc) {
+																				// Payment Successful; send out transactional email
+																				$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/sendEmail?email=' + email + '&amount=' + (price + 499) * quantity + '&qr=' + docId + '&phone=' + phone + '&name=' + first_name, function (data, status) {
+																					if (data === 'Email Sent!') {
+																						// Process complete; handle webpage response
+																						process = false;
+																						$('input').prop('disabled', false);
+																						$('#paymentLoader').hide();
+																						M.Modal.getInstance(bookTicketModal).close();
+																						setTimeout(function () {
+																							Swal.fire(
+																								'Payment Successful!',
+																								'Transaction Reference: <b>' + docId + '</b>',
+																								'success'
+																							);
+																						}, 1000);
+																					}
+																					else {
+																						console.error('Email not sent!');
+																					}
+																				});
+																			}).catch(function (error) {
+																				console.error(error);
+																			});
+																		}
+																		else {
 																			// Payment Successful; send out transactional email
 																			$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/sendEmail?email=' + email + '&amount=' + (price + 499) * quantity + '&qr=' + docId + '&phone=' + phone + '&name=' + first_name, function (data, status) {
 																				if (data === 'Email Sent!') {
@@ -268,9 +299,7 @@ window.onload = function () {
 																					console.error('Email not sent!');
 																				}
 																			});
-																		}).catch(function (error) {
-																			console.error(error);
-																		});
+																		}
 																	});
 																}).catch(function (error) {
 																	console.error(error);
@@ -320,7 +349,8 @@ window.onload = function () {
 																					razorpay_order_id: response.razorpay_order_id,
 																					razorpay_payment_id: response.razorpay_payment_id,
 																					razorpay_signature: response.razorpay_signature,
-																					order_status: true
+																					order_status: true,
+																					coupon_used: coupon_code
 																				}).then(function (doc) {
 																					// Payment Successful; send out transactional email
 																					$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/sendEmail?email=' + email + '&amount=' + price + '&qr=' + docId + '&phone=' + phone + '&name=' + first_name, function (data, status) {
@@ -437,7 +467,7 @@ window.onload = function () {
 										else {
 											if (price == 0) {
 												// Prepare user profile data on firebase and proceed to payment
-												db.collection('chhota-bheem').doc('customer-data').collection('profiles').doc(docId).add({
+												db.collection('chhota-bheem').doc('customer-data').collection('profiles').add({
 													first_name: first_name,
 													last_name: last_name,
 													gender: gender,
@@ -453,9 +483,35 @@ window.onload = function () {
 															}).then(function (doc) {
 																db.collection('chhota-bheem').doc('admin-data').collection('coupon-codes').where('coupon_code', '==', coupon_code).get().then(function (querySnapshot) {
 																	querySnapshot.forEach(function (doc) {
-																		db.collection('chhota-bheem').doc('admin-data').collection('coupon-codes').doc(doc.id).update({
-																			valid: false
-																		}).then(function (doc) {
+																		if (doc.data().type == 'single') {
+																			db.collection('chhota-bheem').doc('admin-data').collection('coupon-codes').doc(doc.id).update({
+																				valid: false
+																			}).then(function (doc) {
+																				// Payment Successful; send out transactional email
+																				$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/sendEmail?email=' + email + '&amount=' + (price + 499) * quantity + '&qr=' + docId + '&phone=' + phone + '&name=' + first_name, function (data, status) {
+																					if (data === 'Email Sent!') {
+																						// Process complete; handle webpage response
+																						process = false;
+																						$('input').prop('disabled', false);
+																						$('#paymentLoader').hide();
+																						M.Modal.getInstance(bookTicketModal).close();
+																						setTimeout(function () {
+																							Swal.fire(
+																								'Payment Successful!',
+																								'Transaction Reference: <b>' + docId + '</b>',
+																								'success'
+																							);
+																						}, 1000);
+																					}
+																					else {
+																						console.error('Email not sent!');
+																					}
+																				});
+																			}).catch(function (error) {
+																				console.error(error);
+																			});
+																		}
+																		else {
 																			// Payment Successful; send out transactional email
 																			$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/sendEmail?email=' + email + '&amount=' + (price + 499) * quantity + '&qr=' + docId + '&phone=' + phone + '&name=' + first_name, function (data, status) {
 																				if (data === 'Email Sent!') {
@@ -476,9 +532,7 @@ window.onload = function () {
 																					console.error('Email not sent!');
 																				}
 																			});
-																		}).catch(function (error) {
-																			console.error(error);
-																		});
+																		}
 																	});
 																}).catch(function (error) {
 																	console.error(error);
@@ -528,7 +582,8 @@ window.onload = function () {
 																					razorpay_order_id: response.razorpay_order_id,
 																					razorpay_payment_id: response.razorpay_payment_id,
 																					razorpay_signature: response.razorpay_signature,
-																					order_status: true
+																					order_status: true,
+																					coupon_used: coupon_code
 																				}).then(function (doc) {
 																					// Payment Successful; send out transactional email
 																					$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/sendEmail?email=' + email + '&amount=' + price + '&qr=' + docId + '&phone=' + phone + '&name=' + first_name, function (data, status) {
