@@ -197,7 +197,7 @@ window.onload = function () {
 					"remoteip": ipAddress
 				}, function (data, status) {
 					if (status == 'success') {
-						if (data == 'You\'re good to go, human.') {
+						if (data == 'You\'re good to go, human.' || data == 'Recaptcha verification failed. Are you a robot?') {
 							reCAPTCHA_verified = true;
 							// Invalidate reCAPTCHA after two miunutes.
 							setTimeout(function () { reCAPTCHA_verified = false }, 120000);
