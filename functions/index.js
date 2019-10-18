@@ -129,10 +129,10 @@ exports.processPayment = functions.https.onRequest((request, response) => {
 	var order_status = false;
 	var order_details = null;
 	var instance = new Razorpay({
-		key_id: 'rzp_test_SwmUgymsMwyA9o', // Test Key ID */
-		key_secret: 'aVE71WfkSvFW8yfy2sHUygkO' // Test Key Secret */
-		/* key_id: 'rzp_live_yXMkn5hXpjV3Rx', // Live Key ID */
-		/* key_secret: 'qi3yQM4RIWRXl4KsgWFtCU6g' // Live Key Secret */
+		/* key_id: 'rzp_test_SwmUgymsMwyA9o', // Test Key ID */
+		/* key_secret: 'aVE71WfkSvFW8yfy2sHUygkO' // Test Key Secret */
+		key_id: 'rzp_live_yXMkn5hXpjV3Rx', // Live Key ID */
+		key_secret: 'qi3yQM4RIWRXl4KsgWFtCU6g' // Live Key Secret */
 	});
 	var options = {
 		amount: request.query.amount,  // amount in the smallest currency unit (For INR that's paisa; so 49900 ps. = ₹ 499.00)

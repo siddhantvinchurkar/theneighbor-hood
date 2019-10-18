@@ -334,8 +334,8 @@ window.onload = function () {
 															var docId = data.docId;
 															$.get('https://us-central1-theneighbor-hood.cloudfunctions.net/processPayment?amount=' + price * 100 + '&order_id=' + order_id, function (data, status) {
 																var razorpay = new Razorpay(options = {
-																	"key": "rzp_test_SwmUgymsMwyA9o", // Test Key ID */
-																	/* "key": "rzp_live_yXMkn5hXpjV3Rx", */
+																	/* "key": "rzp_test_SwmUgymsMwyA9o", // Test Key ID */
+																	"key": "rzp_live_yXMkn5hXpjV3Rx", // Live Key ID */
 																	"amount": price * 100, // Amount is in currency subunits. Default currency is INR. Hence, 49900 refers to 49900 paise or INR ₹ 499.
 																	"currency": "INR",
 																	"name": "The Neighborhood Bengaluru",
