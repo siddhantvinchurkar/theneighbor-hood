@@ -25,9 +25,9 @@
     <meta property="og:image:height" content="512" />
     <meta property="og:locale" content="en_GB" />
     <meta property="event:start_time" content="1571977800" />
-    <link rel="preconnect" href="//https://theneighborhood.website">
-    <link rel="preconnect" href="//https://google.com">
-    <link rel="preconnect" href="//https://checkout.razorpay.com">
+    <link rel="preconnect" href="https://theneighborhood.website">
+    <link rel="preconnect" href="https://google.com">
+    <link rel="preconnect" href="https://checkout.razorpay.com">
     <link rel="shortcut icon" type="image/png" href="../resources/images/icons/icon_cb_48.png" />
     <link rel="manifest" href="manifest.json" />
     <link type="text/css" rel="stylesheet" href="../resources/styles/materialize.min.css" media="screen,projection" />
@@ -254,7 +254,7 @@
       <div class="nav-wrapper"
         style="background-color:#FFFFFF !important; background-image: linear-gradient(to right, #FFFFFF, #F6C567); box-shadow: none !important;">
         <a href="index.html" class="brand-logo"><img src="../resources/images/cb_creative1.webp"
-            style="height:3em;" /></a>
+            style="height:2em;" /></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li id="bookTicketsNow"
             style="background-color:#FFFFFF !important; background-image: linear-gradient(to right, #F6C567, #F48023);">
@@ -266,22 +266,44 @@
 
     <!-- Parallax Background -->
     <div class="parallax-container modal-trigger" href="#bookTicketModal" style="min-height: 750px; cursor: pointer;">
-      <div class="parallax">
+      <div id="header-banner" class="parallax" style="margin-bottom:5em;">
         <picture>
           <source media="(max-width: 600px)" srcset="../resources/images/cb_creative2_720.webp">
-          <img src="../resources/images/cb_creative2.webp">
+          <source media="(max-width: 1600px)" srcset="../resources/images/cb_main_1366.webp">
+          <img class="responsive-img" src="../resources/images/cb_creative2.webp">
         </picture>
+      </div>
+      <div id="header-video" class="responsive-video" style="display:none;">
+        <video id="video-id" controls autoplay muted>
+          <source src="../resources/videos/trailer.webm" type="video/webm" />
+          <source src="../resources/videos/trailer.mp4" type="video/mp4" />
+        </video>
       </div>
     </div>
 
     <div class="row">
       <div class="col s12 m12 l4 xl4">
-        <img style="padding:2em; height:500px;" src="../resources/images/cb_bheem.webp">
+        <img style="padding:2em; height:550px;" src="../resources/images/bheem.webp">
       </div>
       <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
         <h3 class="p22nudgewink">What is this?</h3>
         <p style="font-size: 1.5em;">
-          This is an event for kids.
+          With the backdrop of <b>‘Dholakpur’</b> and the concept of <b>‘Kingdom of Chhota Bheem’</b> in a
+          <b>BALI</b> setup, this is the
+          perfect getaway with family & friends this Diwali.
+          <br />
+          <br />
+          One can experience majestic & elegant royal court with throne with Bali look and feel. Further a village like
+          set up with all features replicated as Dholakpur, where our hero lives and thrives which will be the
+          EXPERIENTIAL ZONE of the carnival. The design will have all aspects of the village to give a grander appeal to
+          kid, for a more real time multi-dimensional experience. The stage area will be engaged continuously with
+          various entertainment programs throughout the event, thus being the <b>ENTERTAINMENT ZONE</b> of the carnival.
+          <br />
+          <br />
+          Familiarity of the design would play a bigger role in cultivating excitement in kids
+          <br />
+          <br />
+          Entry ticket would be charged for all.
         </p>
       </div>
     </div>
@@ -299,8 +321,92 @@
     <div class="parallax-container" style="min-height: 750px;">
       <div class="parallax">
         <picture>
+          <source media="(max-width: 600px)" srcset="../resources/images/cb_creative_k_mobile.webp" />
+          <source media="(max-width: 1600px)" srcset="../resources/images/cb_kpz_1366.webp">
+          <img class="responsive-img" src="../resources/images/cb_creative_kpz.webp" />
+        </picture>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l4 xl4">
+        <img style="padding:2em; height:500px;" src="../resources/images/kalia.webp">
+      </div>
+      <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
+        <h3 class="p22nudgewink">Kids Play Zone</h3>
+        <p style="font-size: 1.5em;">
+          Tired of taking your kids to malls every weekend? This Diwali bring them to the <b>Chhota Bheem and friends
+            carnival</b> at <b>The Neighborhood</b> Sahakarnagar. A separate zone has been created for both kids as well
+          as the adults to have a funfilled day at the carnival. There is something for <b>EVERBODY</b>. <b>Come enjoy a
+            platter of Counter games, Console games, rides, Trampoline, Segway, Rocket lift, Water Zorbing and the list
+            goes on...</b> So grab your tickets right away to experience the most fun filled Diwali without bursting
+          crackers and not adding to the pollution but not compromising the fun time with family & friends.
+        </p>
+      </div>
+    </div>
+
+    <!-- Parallax Background -->
+    <!--<div class="parallax-container" style="min-height: 750px;">
+      <div class="parallax">
+        <picture>
+          <source media="(max-width: 600px)" srcset="../resources/images/placeholders/test.webp">
+          <img src="../resources/images/cb_creative2.webp">
+        </picture>
+      </div>
+    </div>-->
+
+    <div class="row">
+      <div class="col s12 m12 l7 xl7" style="padding:5em;">
+        <h3 class="p22nudgewink">Dholakpur Market</h3>
+        <p style="font-size: 1.5em;">
+          Wondering what parents are buying tickets & what’s in for them at the Chhota Bheem Carnival? We have
+          something for everybody. Shopping Shopping & Shopping. Dholakpur market is all about that! We have stalls
+          setup within the dholakpur where you can shop for wide variety of merchandizes, apparels, and much more!
+          Highlight being the <b>special LADDOO centre</b>.
+        </p>
+      </div>
+      <div class="col s12 m12 l4 xl4 offset-l1 offset-xl1">
+        <img style="padding:2em; height:500px;" src="../resources/images/raju.webp">
+      </div>
+    </div>
+
+    <!-- Parallax Background -->
+    <div class="parallax-container" style="min-height: 750px;">
+      <div class="parallax">
+        <picture>
+          <source media="(max-width: 600px)" srcset="../resources/images/cb_foodcourt_m.webp">
+          <source media="(max-width: 600px)" srcset="../resources/images/cb_wtd_1366.webp">
+          <img class="responsive-img" src="../resources/images/cb_foodcourt.webp">
+        </picture>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l4 xl4">
+        <img style="padding:2em; height:500px;" src="../resources/images/jaggu.webp">
+      </div>
+      <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
+        <h3 class="p22nudgewink">Food Court</h3>
+        <p style="font-size: 1.5em;">
+          <b>Nothing brings people together like good food.</b>
+          <br />
+          <br />
+          Eat delicious, scrumptious, tasty, flavourful food at The Neighborhood Food Court, Sahakarnagar during the
+          Chhota Bheem & friends carnival happening this diwali. Set in a lush green background under a open blue sky it
+          offers you variety of cuisines ranging from South & North Indian, Chinese, Italian, Street food, Beverages &
+          desserts with a festive flavor to cater to everybody’s tastes and desires. <b>There's no better place to enjoy
+            diwali!</b>
+        </p>
+      </div>
+    </div>
+
+    <!-- Parallax Background -->
+    <div class="parallax-container" style="min-height: 750px;">
+      <div class="parallax">
+        <picture>
           <source media="(max-width: 600px)" srcset="../resources/images/cb_creative5_mobile.webp">
-          <img src="../resources/images/cb_creative5.webp">
+          <source media="(max-width: 1600px)" srcset="../resources/images/cb_workshops_1366.webp">
+          <img class="responsive-img" src="../resources/images/cb_creative5.webp">
         </picture>
       </div>
     </div>
@@ -356,7 +462,7 @@
         </div>
         <div class="row valign-wrapper">
           <div class="col s12 m12 l2 xl2 offset-l1 offset-xl1">
-            <img class="circle responsive-img" src="../resources/images/placeholders/10.jpg">
+            <img class="circle responsive-img" style="border: solid 5px" src="../resources/images/mindtronics.webp">
           </div>
           <div class="col s12 m12 l9 xl9">
             <div class="card-panel blue">
@@ -470,7 +576,7 @@
             </div>
           </div>
           <div class="col s12 m12 l2 xl2 offset-l1 offset-xl1">
-            <img class="circle responsive-img" src="../resources/images/placeholders/10.jpg">
+            <img class="circle responsive-img" src="../resources/images/cilre.webp">
           </div>
         </div>
         <div class="row valign-wrapper">
@@ -497,7 +603,7 @@
         <div class="row valign-wrapper">
           <div class="col s12 m12 l9 xl9">
             <div class="card-panel indigo">
-              <span class="white-text"><span style="font-size:1.5em;">Drone workshop with <b>Mindtronics</b></span>
+              <span class="white-text"><span style="font-size:1.5em;">Drone workshop with <b>Adamya</b></span>
                 <br />
                 <br />
                 <p>
@@ -529,75 +635,9 @@
             </div>
           </div>
           <div class="col s12 m12 l2 xl2 offset-l1 offset-xl1">
-            <img class="circle responsive-img" src="../resources/images/placeholders/10.jpg">
+            <img class="circle responsive-img" style="border: solid 5px" src="../resources/images/adamay.webp">
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Parallax Background -->
-    <div class="parallax-container" style="min-height: 750px;">
-      <div class="parallax">
-        <picture>
-          <source media="(max-width: 600px)" srcset="../resources/images/cb_creative_k_mobile.webp" />
-          <img src="../resources/images/cb_creative3.webp" />
-        </picture>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col s12 m12 l4 xl4">
-        <img style="padding:2em; height:500px;" src="../resources/images/cb_kalia.webp">
-      </div>
-      <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
-        <h3 class="p22nudgewink">Kids Play Zone</h3>
-        <p style="font-size: 1.5em;">
-          This is a test paragraph
-        </p>
-      </div>
-    </div>
-
-    <!-- Parallax Background -->
-    <!--<div class="parallax-container" style="min-height: 750px;">
-      <div class="parallax">
-        <picture>
-          <source media="(max-width: 600px)" srcset="../resources/images/placeholders/test.webp">
-          <img src="../resources/images/cb_creative2.webp">
-        </picture>
-      </div>
-    </div>-->
-
-    <div class="row">
-      <div class="col s12 m12 l7 xl7" style="padding:5em;">
-        <h3 class="p22nudgewink">Dholakpur Market</h3>
-        <p style="font-size: 1.5em;">
-          This is a test paragraph
-        </p>
-      </div>
-      <div class="col s12 m12 l4 xl4 offset-l1 offset-xl1">
-        <img style="padding:2em; height:500px;" src="../resources/images/cb_raju.webp">
-      </div>
-    </div>
-
-    <!-- Parallax Background -->
-    <div class="parallax-container" style="min-height: 750px;">
-      <div class="parallax">
-        <picture>
-          <source media="(max-width: 600px)" srcset="../resources/images/placeholders/test.webp">
-          <img src="../resources/images/cb_creative2.webp">
-        </picture>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col s12 m12 l4 xl4">
-        <img style="padding:2em; height:500px;" src="../resources/images/cb_jaggu.webp">
-      </div>
-      <div class="col s12 m12 l7 xl7 offset-l1 offset-xl1" style="padding:5em;">
-        <h3 class="p22nudgewink">Food Court</h3>
-        <p style="font-size: 1.5em;">
-          This is a test paragraph
-        </p>
       </div>
     </div>
 

@@ -24,6 +24,7 @@ var errored = false;
 var signedIn = false;
 var reCAPTCHA_ready = false;
 var coupon_snapshot = null;
+var video_control = false;
 
 var deploy_mode = 'debug'; // Switch between debug and production modes at will
 
@@ -65,6 +66,34 @@ window.onload = function () {
 			if (doc.data().valid) coupon_codes.push(doc.data().coupon_code);
 		});
 	});
+
+	// Play video if loaded
+	setTimeout(function () {
+		if ($(this).width() > 1280) {
+			$('#header-video').show();
+			$('#header-banner').hide();
+		}
+	}, 3000);
+	$(window).on('resize', function () {
+		$('#video-id').width($(window).width());
+		if ($(this).width() < 1280) {
+			$('#header-video').hide();
+			$('#header-banner').show();
+			$('#video-id').trigger('pause');
+		}
+		else if ($(this).width() >= 1280) {
+			$('#header-video').show();
+			$('#header-banner').hide();
+			$('#video-id').trigger('play');
+		}
+	});
+	document.getElementById('video-id').ontimeupdate = function () {
+		if (document.getElementById('video-id').currentTime > 89.9) {
+			$('#video-id').trigger('pause');
+			$('#header-video').hide();
+			$('#header-banner').show();
+		}
+	}
 
 	// Set footer date
 	$('#footerYear').html(new this.Date().getFullYear());
