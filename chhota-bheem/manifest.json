@@ -37,7 +37,7 @@
 	"display": "standalone",
 	"orientation": "portrait",
 	"theme_color": "#F48023",
-	"start_url": "/",
+	"start_url": "index.html",
 	"manifest_version": 2,
 	"version": "1.0",
 	"summary": "Visit Dholakpur and meet Chhota Bheem and Friends at this fun-filled carnival!"

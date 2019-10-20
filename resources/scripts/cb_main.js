@@ -26,7 +26,7 @@ var reCAPTCHA_ready = false;
 var coupon_snapshot = null;
 var video_control = false;
 
-var deploy_mode = 'debug'; // Switch between debug and production modes at will
+var deploy_mode = 'production'; // Switch between debug and production modes at will
 
 function onrecaptchaload() {
 	reCAPTCHA_ready = true;
@@ -37,6 +37,12 @@ function onSubmit(token) {
 }
 
 window.onload = function () {
+
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker
+			.register('sw.js')
+			.then(function () { console.log('%c Service worker up and running.', 'background: #222222; color: #BADA55 ; font-weight:bold;'); });
+	}
 
 	// Console control
 	if (deploy_mode === 'production') {
