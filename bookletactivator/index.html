@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+	<body>
+		<h1>Booklet Activator</h1>
+		<p>
+			Start From Ticket Number &rarr;
+		</p>
+		<br />
+		<br />
+		<input id="start" type="text"></input>
+		<p>
+			End At Ticket Number &rarr;
+		</p>
+		<br />
+		<br />
+		<input id="end" type="text"></input>
+		<button type=submit id="activator" disabled>Activate Booklet</button>
+		<h3 id="status" style="display:none;">Activating...</h3>
+		<script type="text/javascript" src="resources/scripts/firebase-app.js" defer></script>
+		<script type="text/javascript" src="resources/scripts/firebase-auth.js" defer></script>
+		<script type="text/javascript" src="resources/scripts/firebase-firestore.js" defer></script>
+		<script type="text/javascript" src="resources/scripts/firebase-init.js" defer></script>
+		<script type="text/javascript" defer>
+			function isPrime(num) {
+				for (var i = 2; i < num; i++)
+					if (num % i === 0) return false;
+				return num > 1;
+			}
+			function processPrime(num) {
+				if (num < 10) {
+					return '000' + num;
+				}
+				else if (num < 100) {
+					return '00' + num;
+				}
+				else if (num < 1000) {
+					return '0' + num;
+				}
+				else {
+					return '' + num;
+				}
+			}
+			window.onload = function () {
+				// Sign in anonymously to perform firestore and storage transactions
+				firebase.auth().signInAnonymously().catch(function (error) {
+					console.error('Some error.');
+				});
+				firebase.auth().onAuthStateChanged(function (user) {
+					if (user) {
+						document.getElementById('activator').disabled = false;
+					} else {
+						console.error('Some error.');
+					}
+				});
+				document.getElementById('activator').onclick = function () {
+					document.getElementById('status').style.display = 'block';
+					var db = firebase.firestore();
+					for (var i = parseInt(document.getElementById('start').value) - 1; i <= parseInt(document.getElementById('end').value) + 1; i++) {
+						if (isPrime(i)) {
+							db.collection('chhota-bheem').doc('admin-data').collection('coupon-codes').add({
+								coupon_code: 'TNBCB' + processPrime(i),
+								type: 'single',
+								valid: true,
+								value: 499,
+								valueType: 'number'
+							}).then(function (doc) {
+								db.collection('chhota-bheem').doc('admin-data').collection('coupon-codes').doc(doc.id).get().then(function (doc) {
+									document.getElementById('status').innerHTML += '<br />' + doc.data().coupon_code + 'Activated!&emsp;&rarr;&emsp;' + doc.id;
+								}).catch(function (error) {
+									console.error(error);
+								});
+							}).catch(function (error) {
+								console.error(error);
+							});
+						}
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

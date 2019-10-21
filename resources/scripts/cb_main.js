@@ -154,7 +154,14 @@ window.onload = function () {
 			coupon_snapshot.forEach(function (doc) {
 				if (doc.data().coupon_code == coupon_code) {
 					if (doc.data().type == 'single' || doc.data().type == 'timed') {
-						if (doc.data().valid) { $('#price').html(parseInt($('#price').html()) - doc.data().value); }
+						if (doc.data().valid) {
+							if (doc.data().valueType == 'percent') {
+								$('#price').html(parseInt($('#price').html()) - parseInt((parseInt($('#price').html()) * (doc.data().value)) / 100));
+							}
+							else if (doc.data().valueType == 'number') {
+								$('#price').html(parseInt($('#price').html()) - doc.data().value);
+							}
+						}
 					}
 				}
 			});

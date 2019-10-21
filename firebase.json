@@ -77,6 +77,21 @@
           "dynamicLinks": true
         }
       ]
+    },
+    {
+      "target": "bookletactivator",
+      "public": "bookletactivator",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/link/**",
+          "dynamicLinks": true
+        }
+      ]
     }
   ],
   "appAssociation": "AUTO",
