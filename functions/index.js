@@ -16,8 +16,6 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 const sendgrid = require('@sendgrid/mail');
-// sendgrid.setApiKey('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');
-sendgrid.setApiKey('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');
 
 const httprequest = require('request');
 
